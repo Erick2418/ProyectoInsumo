@@ -36,7 +36,7 @@
     </div>
     </div>
     <div class="form-group">
-    <label for="inputEmail1" class="col-lg-2 control-label">Sueldo*</label>
+    <label for="sueldo" class="col-lg-2 control-label">Sueldo*</label>
    
 <div class="col-md-6">
       <input type="text" name="sueldo" class="form-control" id="sueldo" placeholder="sueldo">

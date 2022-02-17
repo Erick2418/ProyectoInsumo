@@ -9,12 +9,14 @@ class PersonData {
 		$this->email = "";
 		$this->image = "";
 		$this->password = "";
+		$this->sueldo = 0;
 		$this->created_at = "NOW()";
 	}
 
 	public function add_client(){
-		$sql = "insert into person (name,lastname,address1,email1,phone1,kind,created_at) ";
-		$sql .= "value (\"$this->name\",\"$this->lastname\",\"$this->address1\",\"$this->email1\",\"$this->phone1\",1,$this->created_at)";
+	//	$sql = "insert into labores (nombre,descripcion,condicion) ";
+		$sql = "insert into person (name,lastname,address1,email1,phone1,sueldo,created_at,kind) ";
+		$sql .= "value (\"$this->name\",\"$this->lastname\",\"$this->address1\",\"$this->email1\",\"$this->phone1\",\"$this->sueldo\",$this->created_at,1)";
 		Executor::doit($sql);
 	}
 
@@ -40,7 +42,7 @@ class PersonData {
 	}
 
 	public function update_client(){
-		$sql = "update ".self::$tablename." set name=\"$this->name\",email1=\"$this->email1\",address1=\"$this->address1\",lastname=\"$this->lastname\",phone1=\"$this->phone1\" where id=$this->id";
+		$sql = "update ".self::$tablename." set name=\"$this->name\",email1=\"$this->email1\",address1=\"$this->address1\",lastname=\"$this->lastname\",sueldo=\"$this->sueldo\",phone1=\"$this->phone1\" where id=$this->id";
 		Executor::doit($sql);
 	}
 
@@ -67,6 +69,7 @@ class PersonData {
 			$data->address1 = $r['address1'];
 			$data->phone1 = $r['phone1'];
 			$data->email1 = $r['email1'];
+			$data->sueldo = $r['sueldo'];
 			$data->created_at = $r['created_at'];
 			$found = $data;
 			break;
@@ -90,6 +93,7 @@ class PersonData {
 			$array[$cnt]->username = $r['username'];
 			$array[$cnt]->phone1 = $r['phone1'];
 			$array[$cnt]->address1 = $r['address1'];
+			$array[$cnt]->sueldo = $r['sueldo'];
 			$array[$cnt]->created_at = $r['created_at'];
 			$cnt++;
 		}
@@ -109,6 +113,7 @@ class PersonData {
 			$array[$cnt]->email1 = $r['email1'];
 			$array[$cnt]->phone1 = $r['phone1'];
 			$array[$cnt]->address1 = $r['address1'];
+			$array[$cnt]->sueldo = $r['sueldo'];
 			$array[$cnt]->created_at = $r['created_at'];
 			$cnt++;
 		}

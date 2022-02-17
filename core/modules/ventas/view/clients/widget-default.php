@@ -21,7 +21,8 @@
 			<th>Direccion</th>
 			<th>Email</th>
 			<th>Telefono</th>
-			<th></th>
+			<th>Sueldo</th>
+			<th>Acciones</th>
 			</thead>
 			<?php
 			foreach($users as $user){
@@ -31,6 +32,7 @@
 				<td><?php echo $user->address1; ?></td>
 				<td><?php echo $user->email1; ?></td>
 				<td><?php echo $user->phone1; ?></td>
+				<td><?php echo $user->sueldo; ?></td>
 				<td style="width:130px;">
 				<a href="index.php?view=editclient&id=<?php echo $user->id;?>" class="btn btn-warning btn-xs">Editar</a>
 				<a href="index.php?view=delclient&id=<?php echo $user->id;?>" class="btn btn-danger btn-xs">Eliminar</a>
