@@ -15,6 +15,7 @@ include "core/modules/".Module::$module."/model/ConfigurationData.php";
 include "core/modules/".Module::$module."/model/PersonData.php";
 include "core/modules/".Module::$module."/model/CategoryData.php";
 include "core/modules/".Module::$module."/model/BoxData.php";
+include "core/modules/".Module::$module."/model/Lot.php";
 
 session_start();
 ob_start();

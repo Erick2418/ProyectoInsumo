@@ -4,6 +4,11 @@
 	<a href="index.php?view=newlote" class="btn btn-default">Agregar Lote</a>
 </div>
 </div>
+<?php
+
+		$lots = LotData::getAll();
+//	var_dump( $users);
+		?>
 		<h1>Lista de Lotes</h1>
 		<div class="clearfix"></div>
 	<div class="clearfix"></div>
@@ -11,24 +16,39 @@
 	<thead>
 		<th>Nombre </th>
         <th>Número</th>
-		<th></th>
-            
+		<th>Dimensión de Lote</th>
+		<th>Acciones</th>    
 	</thead>
-    <td></td>
-    <td></td>
-    
+	<?php
+			foreach($lots as $lot){ ?>
+				<tr>
+					<td><?php echo $lot->name ?></td>
+					<td><?php echo $lot->num_lot ?></td>
+					<td><?php echo $lot->dimension ?></td>
+					<td>
+						<a href="index.php?view=delLot&amp;id=<?php echo $lot->id ?>" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+						<a href="index.php?view=editLot&amp;id=<?php echo $lot->id ?>" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
+					</td>
+				<tr> 
+	<?php
+			}
+			
+			
+	?>
+	</table>
+    <!-- 
        <td style="width:70px;">
-		<a href="../products/index.php?view=editproduct&amp;id=<?php echo $product->id; ?>" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
-		<a href="../products/index.php?view=delproduct&amp;id=<?php echo $product->id; ?>" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-		</td>
-	</tr>
 	
-
+	   
+	</td>
+	</tr>
+	-->
+<!--- 
 <div class="clearfix"></div>
 
 		<div class="jumbotron">
 		<h2>No hay Lotes</h2>
 		<p>No se han agregado producciones a la base de datos, puedes agregar uno dando click en el boton <b>"Agregar Lote"</b>.</p>
 	</div>
-	
+	-->
 <br><br><br><br><br><br><br><br><br><br>
