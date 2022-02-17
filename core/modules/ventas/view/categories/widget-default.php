@@ -15,15 +15,19 @@
 			<table class="table table-bordered table-hover">
 			<thead>
 			<th>Nombre</th>
-			<th></th>
+			<th>Descripción</th>
+			<th>Acciones</th>
 			</thead>
 			<?php
 			foreach($users as $user){
 				?>
 				<tr>
-				<td><?php echo $user->name." ".$user->lastname; ?></td>
-				<td style="width:130px;"><a href="index.php?view=editcategory&id=<?php echo $user->id;?>" class="btn btn-warning btn-xs">Editar</a> <a href="index.php?view=delcategory&id=<?php echo $user->id;?>" class="btn btn-danger btn-xs">Eliminar</a></td>
-				</tr>
+				<td><?php echo $user->name; ?></td>
+				<td><?php echo $user->description; ?></td>
+				<td>
+					<a href="index.php?view=delCat&amp;id=<?php echo $user->id ?>" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+					<a href="index.php?view=editcategory&amp;id=<?php echo $user->id ?>" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
+				</td>
 				<?php
 
 			}

@@ -1,4 +1,7 @@
-<?php $user = CategoryData::getById($_GET["id"]);?>
+<?php 
+echo 'HERE';
+$user = CategoryData::getById($_GET["id"]);
+?>
 <div class="row">
 	<div class="col-md-12">
 	<h1>Editar Categoria</h1>
@@ -10,6 +13,13 @@
     <label for="inputEmail1" class="col-lg-2 control-label">Nombre*</label>
     <div class="col-md-6">
       <input type="text" name="name" value="<?php echo $user->name;?>" class="form-control" id="name" placeholder="Nombre">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="description" class="col-lg-2 control-label">Descripción*</label>
+    <div class="col-md-6">
+      <input type="text" name="description" value="<?php echo $user->description;?>" class="form-control" id="name" placeholder="Nombre">
     </div>
   </div>
 
