@@ -15,5 +15,4 @@ print "<script>window.location='index.php?view=lote';</script>";
 
 
 ?>
-
-<h1>xd</h1>
+ 

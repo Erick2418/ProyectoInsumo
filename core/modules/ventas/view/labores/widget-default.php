@@ -11,33 +11,43 @@
 </div>
 		<h1>Labor</h1>
 <br>
-<table class="table table-bordered table-hover">
-			<thead>
-  			<th>ID</th>
-  			<th>labor</th>
-  			<th>Descripción</th>
-  			
-  		</thead>
-  		
-  		
-  		<?php
-		include'conexion.php';
-       $sentencia="SELECT * FROM labores";
-       $resultado=mysql_query($sentencia);
-	   while($filas=mysql_fetch_assoc($resultado))
-	   {
-       echo "<tr>";
-        echo "<td>"; echo $filas['idlabores']; echo "</td>";
-          echo "<td>"; echo $filas['nombre']; echo "</td>";
-          echo "<td>"; echo $filas['descripcion']; echo "</td>";
-		  
-          echo "<td> <a href='modif_prod1.php?view=labores'> <button type='button' class='btn btn-success' >Modificar</button> </a> ";
-          echo "<a href='eliminar_prod.php?view=labores'><button type='button' class='btn btn-danger'>Eliminar</button></a> </td>";
-        echo "</tr>";
-     }
-	 
-      ?>
-  	</table>
+
+
+<?php
+
+		$labores = LaboresData::getAll();
+//	var_dump( $users);
+		?>
+		<div class="clearfix"></div>
+	<div class="clearfix"></div>
+<br><table class="table table-bordered table-hover">
+	<thead>
+		<th>ID</th>
+    <th>Labor</th>
+		<th>Descripción</th>
+		<th>Acciones</th>    
+	</thead>
+	<?php
+			foreach($labores as $labor){ ?>
+				<tr>
+					<td><?php echo $labor->idlabores ?></td>
+					<td><?php echo $labor->nombre ?></td>
+					<td><?php echo $labor->descripcion ?></td>
+					<td>
+						<a href="index.php?view=delLabor&amp;id=<?php echo $labor->idlabores ?>" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+						<a href="index.php?view=editLabor&amp;id=<?php echo $labor->idlabores ?>" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
+					</td>
+				<tr> 
+	<?php
+			}
+			
+			
+	?>
+	</table>
+
+  
+
+
   </div>
     </div>
       </div>
