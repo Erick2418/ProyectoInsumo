@@ -18,8 +18,7 @@ class TotalProduccion {
         $stado= "FINALIZADO";
 
 		$sql = "UPDATE  production SET estadoProduccion= \"$stado\" where id=$this->id_Produccion";
-		echo $sql;
-        die();
+
         Executor::doit($sql);
 
 

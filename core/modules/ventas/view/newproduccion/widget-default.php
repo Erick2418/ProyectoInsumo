@@ -119,7 +119,7 @@ $stockProductos = ProductData::getAllProductFromCantidad();
             <div class="form-group">
                 <label for="inputEmail1" class="col-lg-2 control-label">Lote*</label>
                 <div class="col-md-6">
-                    <select name="lote_id" class="form-control">
+                    <select name="lote_id" id="selectLote" class="form-control">
                         <option value="">-- NINGUNA --</option>
                         <?php foreach($lots as $lot):?>
                         <option value="<?php echo $lot->id;?>"><?php echo $lot->name;?></option>
@@ -130,7 +130,7 @@ $stockProductos = ProductData::getAllProductFromCantidad();
             <div class="form-group">
                 <label for="inputEmail1" class="col-lg-2 control-label">Labor*</label>
                 <div class="col-md-6">
-                    <select name="labores_id" class="form-control">
+                    <select name="labores_id" id="selectLabor" class="form-control">
                         <option value="">-- NINGUNA --</option>
                         <?php foreach($labores as $labor):?>
                         <option value="<?php echo $labor->idlabores;?>"><?php echo $labor->nombre;?></option>
@@ -142,7 +142,7 @@ $stockProductos = ProductData::getAllProductFromCantidad();
             <div class="form-group">
                 <label for="inputEmail1" class="col-lg-2 control-label">Empleado*</label>
                 <div class="col-md-6">
-                    <select name="empleado_id" class="form-control">
+                    <select name="empleado_id" id="selectEmpleado" class="form-control">
                         <option value="">-- NINGUNA --</option>
                         <?php foreach($users as $user):?>
                         <option value="<?php echo $user->id;?>"><?php echo $user->name;?></option>
@@ -153,7 +153,7 @@ $stockProductos = ProductData::getAllProductFromCantidad();
             <div class="form-group">
                 <label for="inputEmail1" class="col-lg-2 control-label">Fecha Comienzo*</label>
                 <div class="col-md-6">
-                    <input onchange="myFunction()" type="date" name="inputFechaComienzo" class="form-control" required
+                    <input onchange="myFunction()" type="date" name="inputFechaComienzo" class="form-control"
                         id="inputFechaComienzo" placeholder="Descripción">
                 </div>
             </div>
@@ -161,8 +161,8 @@ $stockProductos = ProductData::getAllProductFromCantidad();
             <div class="form-group">
                 <label for="inputEmail1" class="col-lg-2 control-label">Fecha Fin*</label>
                 <div class="col-md-6">
-                    <input type="date" name="inputFechaFin" min="2014-05-11" class="form-control" required
-                        id="inputFechaFin" placeholder="Descripción">
+                    <input type="date" name="inputFechaFin" min="2014-05-11" class="form-control" id="inputFechaFin"
+                        placeholder="Descripción">
                 </div>
             </div>
 
@@ -233,7 +233,7 @@ $stockProductos = ProductData::getAllProductFromCantidad();
             <div class="form-group">
 
                 <div class="form-group">
-                    <div class="col-lg-offset-2 col-lg-10">
+                    <div class="col col-lg-10">
                         <!-- type="submit" -->
                         <button onclick="agregarDatosFormulario()" type="submit" class="btn btn-primary">Agregar
                             Producción</button>
@@ -275,7 +275,7 @@ $stockProductos = ProductData::getAllProductFromCantidad();
 
                         <label for="exampleInputPassword1">Cantidad</label>
                         <input type="text" class="form-control" name="numCantidad" id="numCantidad"
-                            placeholder="Ingrese Cantidad" require>
+                            placeholder="Ingrese Cantidad">
 
                     </div>
 
@@ -334,9 +334,6 @@ $stockProductos = ProductData::getAllProductFromCantidad();
 </div>
 
 <script>
-
-    
-
 function myFunction() {
     var fehaInicio = document.getElementById("inputFechaComienzo").value;
     var fechaFin = document.getElementById("inputFechaFin");
@@ -367,32 +364,32 @@ function agregarDatosFormulario() {
 }
 
 
-function validarStock(cantidad,idProduct){
+function validarStock(cantidad, idProduct) {
     // si retorna falso es por que aun tiene productos
 
-    var arrayJS=<?php echo json_encode($stockProductos);?>;
+    var arrayJS = <?php echo json_encode($stockProductos);?>;
     var esMayor = false;
     arrayJS.map(
-        data=>{
-            if( data.id == idProduct ){
+        data => {
+            if (data.id == idProduct) {
                 let cantDisponible = parseInt(data.unit) - parseInt(data.inventary_min);
-                if(  parseInt(cantidad) > cantDisponible ){
-                    console.log(parseInt(data.inventary_min) );
-                    console.log(parseInt(data.unit) );
-                    let mensaje = "Cantidad Ingresada:"+ cantidad + ", Cantidad Disponible: "+cantDisponible;
+                if (parseInt(cantidad) > cantDisponible) {
+                    console.log(parseInt(data.inventary_min));
+                    console.log(parseInt(data.unit));
+                    let mensaje = "Cantidad Ingresada:" + cantidad + ", Cantidad Disponible: " + cantDisponible;
 
                     swal("Stock Insuficiente", mensaje, 'warning');
                     esMayor = true;
-                }else{
-                    
+                } else {
+
                 }
 
 
             }
-            
+
         }
     )
-        
+
     return esMayor;
 
 
@@ -422,12 +419,12 @@ function validarProducto() {
         return false
     }
 
-    if(validarStock( numbCantidad,productt) ){
-       
-         
+    if (validarStock(numbCantidad, productt)) {
+
+
         return false
-    }  
-  
+    }
+
 
 
     return true;
@@ -438,7 +435,55 @@ function validarProducto() {
 
 
 function validarProduccion() {
+    console.log('hey');
 
+
+
+
+
+    let selectLote = document.getElementById("selectLote").value;
+
+    let selectLabor = document.getElementById("selectLabor").value;
+
+    let selectEmpleado = document.getElementById("selectEmpleado").value;
+
+    let inputFechaComienzo = document.getElementById("inputFechaComienzo").value;
+
+    let inputFechaFin = document.getElementById("inputFechaFin").value;
+
+
+
+    if (!selectLote.trim()) {
+        swal("Seleccione un Lote", '', 'warning');
+        console.log('debe ingresar Lote');
+        return false
+    }
+
+    if (!selectLabor.trim()) {
+        swal("Seleccione un Labor", '', 'warning');
+        console.log('debe ingresar catnidad');
+        return false
+    }
+
+    if (!selectEmpleado.trim()) {
+        swal("Seleccione un Empleado", '', 'warning');
+        console.log('debe ingresar catnidad');
+        return false
+    }
+
+    if (!inputFechaComienzo.trim()) {
+        swal("Seleccione una Fecha Inicio", '', 'warning');
+        console.log('debe ingresar catnidad');
+        return false
+    }
+
+    if (!inputFechaFin.trim()) {
+        swal("Seleccione una Fecha Fin", '', 'warning');
+        console.log('debe ingresar catnidad');
+        return false
+    }
+
+    return true;
 }
 
 
@@ -446,4 +491,3 @@ const miVariableEnJavaScript = "<?php echo $id_temporal; ?>";
 document.getElementById("idgenerado").value = miVariableEnJavaScript + "";
 document.getElementById("idTemp").value = miVariableEnJavaScript + "";
 </script>
-

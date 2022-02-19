@@ -7,7 +7,7 @@
             action="index.php?view=addTotalProduccion" role="form">
 
             <div class="form-group">
-                <label for="name" class="col-lg-2 control-label">Total Productos *</label>
+                <label for="name" class="col-lg-2 control-label">Total Piña *</label>
                 <div class="col-md-6">
                     <input type="number" name="total_productos" class="form-control" required id="total_productos" placeholder="Ingrese Total Productos">
                 </div>

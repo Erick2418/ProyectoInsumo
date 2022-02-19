@@ -1,3 +1,9 @@
+<?php
+	$novedades = NovedadData::getAll();
+	var_dump($novedades);
+?>
+
+
 <div class="row">
 	<div class="col-md-12">
 <div class="btn-group  pull-right">
@@ -26,8 +32,8 @@
     <td></td>
     <td></td>
        <td style="width:70px;">
-		<a href="../products/index.php?view=editproduct&amp;id=<?php echo $product->id; ?>" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
-		<a href="../products/index.php?view=delproduct&amp;id=<?php echo $product->id; ?>" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+		<a href="../products/index.php?view=editproduct&amp;id=<?php //echo $product->id; ?>" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
+		<a href="../products/index.php?view=delproduct&amp;id=<?php// echo $product->id; ?>" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
 		</td>
 	</tr>
 	
