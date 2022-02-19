@@ -1,7 +1,18 @@
+<?php
+
+		$producciones = ProductionData::getAll();
+?>
+
+<script>
+//    document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+</script>
+
 <div class="row">
     <div class="col-md-12">
         <div class="btn-group  pull-right">
-            <a href="index.php?view=newproduccion" class="btn btn-default">Agregar Producción</a>
+            <a onclick="asignarIDnew();" href="index.php?view=newproduccion" class="btn btn-default">Agregar
+                Producción</a>
             <div class="btn-group pull-right">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-download"></i> Descargar <span class="caret"></span>
@@ -26,20 +37,47 @@
                 <th></th>
 
             </thead>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td> </td>
-            <td>Ingresar Novedad <a href="index.php?view=newnovedad"> </a><i class="fa fa-tasks"></i></td>
-            <td> </td>
-            <td style="width:70px;">
 
-                <a href="../products/index.php?view=editproduct&amp;id=<?php //echo $product->id; ?>"
-                    class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
-                <a href="../products/index.php?view=delproduct&amp;id=<?php //echo $product->id; ?>"
-                    class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-            </td>
-            </tr>
+
+
+
+            <?php
+			foreach($producciones as $product){  ?>
+            <tr>
+                <td><?php echo $product->id_lote ?></td>
+                <td><?php echo $product->id_labores ?></td>
+                <td><?php echo $product->fecha_inicio ?></td>
+                <td><?php echo $product->fecha_fin ?></td>
+                <td>IN PROGRESS</td>
+                
+                <td>Ingresar Novedad <a href="index.php?view=newnovedad"> </a><i class="fa fa-tasks"></i></td>
+
+                <td style="width:70px;">
+
+                    <a href="../products/index.php?view=editproduct&amp;id=<?php //echo $product->id; ?>"
+                        class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
+                    <a href="../products/index.php?view=delproduct&amp;id=<?php //echo $product->id; ?>"
+                        class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                </td>
+
+            <tr>
+                <?php
+			}
+
+			?>
+
+
+
+
+
+
+
+
+
+
+
+
+
         </table>
 
         <br><br><br><br><br><br><br><br><br><br>

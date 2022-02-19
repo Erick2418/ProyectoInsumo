@@ -17,6 +17,9 @@ include "core/modules/".Module::$module."/model/CategoryData.php";
 include "core/modules/".Module::$module."/model/BoxData.php";
 include "core/modules/".Module::$module."/model/Lot.php";
 include "core/modules/".Module::$module."/model/LaboresData.php";
+include "core/modules/".Module::$module."/model/ProductionProduct.php";
+include "core/modules/".Module::$module."/model/Production.php";
+
 
 session_start();
 ob_start();

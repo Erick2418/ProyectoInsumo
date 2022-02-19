@@ -176,6 +176,7 @@ class ProductData {
 
 	public static function getAllByCategoryId($category_id){
 		$sql = "select * from ".self::$tablename." where category_id=$category_id order by created_at desc";
+
 		$query = Executor::doit($sql);
 		$array = array();
 		$cnt = 0;
@@ -192,6 +193,7 @@ class ProductData {
 			$array[$cnt]->created_at = $r['created_at'];
 			$cnt++;
 		}
+		
 		return $array;
 	}
 
