@@ -1,6 +1,5 @@
 <?php
-
-		$producciones = ProductionData::getAll();
+	$producciones = ProductionData::getAll();
 ?>
 
 <script>
@@ -49,8 +48,12 @@ document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                 <td><?php echo $product->fecha_inicio ?></td>
                 <td><?php echo $product->fecha_fin ?></td>
                 
-                <td>Ingresar Novedad <a href="index.php?view=newnovedad"> </a><i class="fa fa-tasks"></i></td>
-                <td>IN PROGRESS</td>
+                <td>Ingresar Novedad 
+                    <a href="index.php?view=newnovedad&amp;id=<?php echo $product->id; ?>">
+                        <i class="fa fa-tasks"></i>
+                    </a>
+                </td>
+                <td><?php echo $product->estadoProduccion ?></td>
 
                 <td style="width:70px;">
 
@@ -58,6 +61,9 @@ document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                         class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
                     <a href="../products/index.php?view=delproduct&amp;id=<?php //echo $product->id; ?>"
                         class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                        <a href="index.php?view=totalProduccion&amp;id=<?php echo $product->id; ?>"
+                        class="btn btn-xs btn-success"><i class="fa fa-check"></i></a>
+
                 </td>
 
             <tr>

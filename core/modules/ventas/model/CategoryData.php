@@ -84,6 +84,22 @@ class CategoryData {
 	}
 
 
+
+	public static function getTipoNovedad(){
+		$sql = "select * from tipo_novedad ";
+		$query = Executor::doit($sql);
+		$array = array();
+		$cnt = 0;
+		while($r = $query[0]->fetch_array()){
+			$array[$cnt] = new CategoryData();
+			$array[$cnt]->id = $r['id'];
+			$array[$cnt]->nombre = $r['nombre'];
+			$cnt++;
+		}
+		return $array;
+	}
+
+
 }
 
 ?>

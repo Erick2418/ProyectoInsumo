@@ -1,5 +1,5 @@
 <?php
-
+ 
 if(count($_POST)>0){
   
   // Creamos la produccion
@@ -14,25 +14,34 @@ if(count($_POST)>0){
 
   // Ahora vamos a insertar el id de Produccion a la tabla de productos
   $idProduction = $produccion->lastId();
-  echo "<br>";
-  echo "ID PRODUCTION IS: ";
-  var_dump($idProduction );
-  echo "<br>";
+ 
   $idProduccion =  $idProduction[0];
   $productos = $_POST["idsproductos"];
   $arrayIdProductos = explode(",", $productos);
-  var_dump( $arrayIdProductos );
-
-
+ 
   $productProducction = new ProductionProduct();
+//  
+	$productModel = new  ProductData();
 
-  foreach ($arrayIdProductos as $producto) {
+  $stockActuala = 0;
+
+  foreach ($arrayIdProductos as $producto) { // array de product_produccion
 
     $productProducction->updateIdProduction($producto,$idProduccion );
-     
+      // vamos a traer la cantidad y restarla del stock
+    $cantidadArry= $productProducction->getCantidadARestar($producto);
+    $cantidadARestar =  $cantidadArry->cantidad;
+    $idProductoARestar = $cantidadArry->idProducto;
+ 
+    $cantidadActualArray = $productModel->getProducttCantidadById($idProductoARestar);
+ 
+    $unidadesActuales = $cantidadActualArray->unit;
+ 
+    $stockActuala = $unidadesActuales  - $cantidadARestar; 
+    $productModel->updateCantidad($stockActuala, $idProductoARestar );
+    
   }
 
- 
 print "<script>window.location='index.php?view=produccion';</script>";
  
 

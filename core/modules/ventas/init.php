@@ -19,7 +19,8 @@ include "core/modules/".Module::$module."/model/Lot.php";
 include "core/modules/".Module::$module."/model/LaboresData.php";
 include "core/modules/".Module::$module."/model/ProductionProduct.php";
 include "core/modules/".Module::$module."/model/Production.php";
-
+include "core/modules/".Module::$module."/model/NovedadData.php";
+include "core/modules/".Module::$module."/model/Produccion_Total.php";
 
 session_start();
 ob_start();

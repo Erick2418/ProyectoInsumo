@@ -41,6 +41,13 @@ class ProductData {
 		Executor::doit($sql);
 	}
 
+
+	public function updateCantidad($cantidad,$idProduct){
+		$sql = "update ".self::$tablename." set unit=\"$cantidad\" where id=$idProduct";
+		Executor::doit($sql);
+	 
+	}
+
 	public function del_category(){
 		$sql = "update ".self::$tablename." set category_id=NULL where id=$this->id";
 		Executor::doit($sql);
@@ -76,6 +83,25 @@ class ProductData {
 		return $found;
 	}
 
+
+	public static function getProducttCantidadById($id){
+		$sql = "select unit from ".self::$tablename." where id=$id";
+		$query = Executor::doit($sql);
+		echo "<br>";
+
+		echo $sql;
+echo "<br>";
+		
+		$found = null;
+		$data = new ProductData();
+		while($r = $query[0]->fetch_array()){
+			$data->unit = $r['unit'];
+			$found = $data;
+			break;
+		}
+		
+		return $found;
+	}
 
 
 	public static function getAll(){
@@ -200,6 +226,24 @@ class ProductData {
 
 
 
+	public static function getAllProductFromCantidad(){
+		$sql = "select id, inventary_min, unit from product ";
+		$query = Executor::doit($sql);
+		 
+		$array = array();
+		$cnt = 0;
+		while($r = $query[0]->fetch_array()){
+			$array[$cnt] = new ProductData();
+			$array[$cnt]->id = $r['id'];
+			$array[$cnt]->inventary_min = $r['inventary_min'];
+			$array[$cnt]->unit = $r['unit'];
+		
+			$cnt++;
+		}
+		 
+		return $array;
+	}
+	
 
 
 

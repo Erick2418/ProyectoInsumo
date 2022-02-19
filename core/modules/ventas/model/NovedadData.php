@@ -1,43 +1,26 @@
 <?php
-class ProductionData {
-	public static $tablename = "production";
+class NovedadData {
+	public static $tablename = "novelty";
    
 
 
-	public function ProductionData(){
-        $this->id = null;
-        $this->id_lote = null;
-        $this->fecha_inicio = null;
-        $this->fecha_fin = null;
-        $this->id_empleado = null;
-        $this->id_labores = null;
-        $this->id_productProduction = null;
-		$this->estadoProduccion = null;
-        $this->status = null;
-
+	public function NovedadData(){
+        $this->id ="";
+        $this->fecha_novedad ="";
+        $this->id_produccion =0;
+        $this->id_tipoNovedad=0;
+        $this->descripcion =0;
+        $this->valor =0;
 	}
 
 	public function add(){
-		$sql = "insert into production (id_lote,fecha_inicio,fecha_fin,id_empleado,id_labores,id_productProduction)";
+ 
+		$sql = "insert into novelty (fecha_novedad,id_produccion,id_tipoNovedad,descripcion,valor ) ";
 		//$sql .= "value (\"$this->name\",$this->num_lot)";
-        $sql .= "value (\"$this->id_lote\",\"$this->fecha_inicio\",\"$this->fecha_fin\",\"$this->id_empleado\",\"$this->id_labores\",\"$this->id_productProduction\")";
-        Executor::doit($sql);
-
-		// ACTUALIZANDO STOK
-		// Como son varios productos ingresados a todos se les tiene que restar el stok
-		// UPDATE `product` SET unit=  WHERE id = 
-
-
+        $sql .= "value (\"$this->fecha_novedad\",\"$this->id_produccion\",\"$this->id_tipoNovedad\",\"$this->descripcion\",\"$this->valor\")";
+		echo $sql;
+		Executor::doit($sql);
 	}
-    public function lastId(){
-		$sql = "SELECT MAX(id) AS id FROM production;";
-		$query = Executor::doit($sql);
-		$array = array();
-		$cnt = 0;
-		$r = $query[0]->fetch_array();
-		return $r;
-	}
-    
 
 	public static function delById($id){
 		$sql = "delete from ".self::$tablename." where id=$id";
@@ -60,10 +43,10 @@ class ProductionData {
 
 
 	public static function getById($id){
-	/*	$sql = "select * from ".self::$tablename." where id=$id";
+		$sql = "select * from ".self::$tablename." where id=$id";
 		$query = Executor::doit($sql);
 		$found = null;
-		$data = new ProductionData();
+		$data = new NovedadData();
 		while($r = $query[0]->fetch_array()){
 			$data->id = $r['id'];
 			$data->name = $r['name'];
@@ -72,31 +55,27 @@ class ProductionData {
 			$found = $data;
 			break;
 		}
-		return $found;*/
+		return $found;
 	}
 
 
 
 	public static function getAll(){
-		$sql = "select * from ".self::$tablename." where status = 1";
+		$sql = "select * from ".self::$tablename." where condicion = 1";
 		$query = Executor::doit($sql);
 		$array = array();
 		$cnt = 0;
 		while($r = $query[0]->fetch_array()){
-			$array[$cnt] = new ProductionData();
+			$array[$cnt] = new NovedadData();
 			$array[$cnt]->id = $r['id'];
-			$array[$cnt]->id_lote = $r['id_lote'];
-			$array[$cnt]->fecha_inicio = $r['fecha_inicio'];
-			$array[$cnt]->fecha_fin = $r['fecha_fin'];
-            $array[$cnt]->id_empleado = $r['id_empleado'];
-			$array[$cnt]->id_labores = $r['id_labores']; 
-			$array[$cnt]->id_productProduction = $r['id_productProduction']; 
-			$array[$cnt]->estadoProduccion = $r['estadoProduccion']; 
+			$array[$cnt]->name = $r['name'];
+			$array[$cnt]->num_lot = $r['num_lot'];
+            $array[$cnt]->dimension = $r['dimension'];
+            
 			$cnt++;
 		}
 		return $array;
 	}
-	
 
 
 	public static function getLike($q){

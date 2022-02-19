@@ -1,3 +1,4 @@
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 /* Center the loader */
 #loader {
@@ -99,6 +100,10 @@ if(!isset($_COOKIE["var_cookie"])) {
     echo " <script> console.log('SI HAY COOKIE');   </script>";
     $id_temporal = $_COOKIE["var_cookie"];    
  }
+ 
+   
+$stockProductos = ProductData::getAllProductFromCantidad();
+ 
 
 ?>
 
@@ -108,7 +113,7 @@ if(!isset($_COOKIE["var_cookie"])) {
         <h1>Nueva Producción</h1>
         <br>
         <form class="form-horizontal" method="post" enctype="multipart/form-data" id="addproduct"
-            action="index.php?view=addProducciong" role="form">
+            action="index.php?view=addProducciong" onsubmit="return validarProduccion()" role="form">
 
 
             <div class="form-group">
@@ -162,16 +167,17 @@ if(!isset($_COOKIE["var_cookie"])) {
             </div>
 
             <!-- style="display:none" -->
-            <div class="form-group" >
+            <div class="form-group" style="display:none">
                 <label for="idTemp" class="col-lg-2 control-label">idTemp</label>
                 <div class="col-md-6">
-                    <input type="text" name="idTemp" class="form-control"  id="idTemp" placeholder="idTemp">
+                    <input type="text" name="idTemp" class="form-control" id="idTemp" placeholder="idTemp">
                 </div>
             </div>
-            <div class="form-group"  style="display:none"  >
+            <div class="form-group" style="display:none">
                 <label for="idsproductos" class="col-lg-2 control-label">idsproductos</label>
                 <div class="col-md-6">
-                    <input type="text" name="idsproductos" class="form-control" id="idsproductos"  placeholder="idsproductos">
+                    <input type="text" name="idsproductos" class="form-control" id="idsproductos"
+                        placeholder="idsproductos">
                 </div>
             </div>
 
@@ -181,7 +187,7 @@ if(!isset($_COOKIE["var_cookie"])) {
             <!--- =======================
                 PANEL PRODUCTOS
             ================================ -->
- 
+
             <div class="panel panel-info">
                 <div class="panel-heading">Productos e Insumos</div>
                 <div class="panel-body">
@@ -205,7 +211,7 @@ if(!isset($_COOKIE["var_cookie"])) {
                 $valorIncremental = $valorIncremental + 1 ;
                   ?>
                             <tr id="tr_<?php  echo $valorIncremental; ?>">
-                                <td style="display:none;" ><?php echo $pp->id; ?></td>
+                                <td style="display:none;"><?php echo $pp->id; ?></td>
                                 <td><?php echo $pp->idProducto; ?></td>
                                 <td><?php echo $pp->cantidad; ?></td>
                                 <td><?php echo $pp->id_temp; ?></td>
@@ -229,7 +235,8 @@ if(!isset($_COOKIE["var_cookie"])) {
                 <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
                         <!-- type="submit" -->
-                        <button onclick="agregarDatosFormulario()"  type="submit" class="btn btn-primary">Agregar Producción</button>
+                        <button onclick="agregarDatosFormulario()" type="submit" class="btn btn-primary">Agregar
+                            Producción</button>
                     </div>
                 </div>
         </form>
@@ -247,15 +254,15 @@ if(!isset($_COOKIE["var_cookie"])) {
         <div class="modal-content">
             <div class="modal-header">
                 <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                <h4 class="modal-title" id="myModalLabel">Agregar un Producto</h4>
             </div>
 
             <div class="modal-body">
 
                 <form class="form-horizontal" method="post" enctype="multipart/form-data" id="addCategory"
-                    action="index.php?view=addProductProduccion" role="form">
+                    action="index.php?view=addProductProduccion" onsubmit="return validarProducto()" role="form">
 
-                    <div class="form-group"  style="display:none;">
+                    <div class="form-group" style="display:none;">
 
                         <label for="exampleInputPassword1">IDGENERADO</label>
                         <input type="text" class="form-control" value="<?php echo $id_temporal; ?>" name="idgenerado"
@@ -312,7 +319,7 @@ if(!isset($_COOKIE["var_cookie"])) {
                     </div> -->
                     <!-- <button type="submit" class="btn btn-primary" data-dismiss="modal">Guardar</button> -->
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-default">Agregar PRODUCTO</button>
+                    <button type="submit" class="btn btn-success">Añadir Producto</button>
                 </form>
 
 
@@ -327,6 +334,9 @@ if(!isset($_COOKIE["var_cookie"])) {
 </div>
 
 <script>
+
+    
+
 function myFunction() {
     var fehaInicio = document.getElementById("inputFechaComienzo").value;
     var fechaFin = document.getElementById("inputFechaFin");
@@ -337,26 +347,103 @@ function agregarDatosFormulario() {
 
     let tabla = document.getElementById('tableProductos');
     console.log(tabla)
-    var jsonDatosProductos="";
+    var jsonDatosProductos = "";
     if (tabla.hasChildNodes()) {
-        
+
         var children = tabla.childNodes;
-        
+
         for (var i = 1; i < children.length - 1; i++) {
             if (i % 2 != 0) { // extraniamente trae una basura de un td vacio por eso se filtra los impares
                 console.log('Imprimiendo')
-                    // este es el id de la tabla Producto_produccion
-                    jsonDatosProductos = jsonDatosProductos+ ","+children[i].cells[0].innerText;
-                
+                // este es el id de la tabla Producto_produccion
+                jsonDatosProductos = jsonDatosProductos + "," + children[i].cells[0].innerText;
+
             }
         }
-     //   console.log(JSON.stringify( jsonDatosProductos) );
-        
-        document.getElementById("idsproductos").value =   jsonDatosProductos.substring( 1,jsonDatosProductos.length );
+        //   console.log(JSON.stringify( jsonDatosProductos) );
+
+        document.getElementById("idsproductos").value = jsonDatosProductos.substring(1, jsonDatosProductos.length);
     }
 }
+
+
+function validarStock(cantidad,idProduct){
+    // si retorna falso es por que aun tiene productos
+
+    var arrayJS=<?php echo json_encode($stockProductos);?>;
+    var esMayor = false;
+    arrayJS.map(
+        data=>{
+            if( data.id == idProduct ){
+                let cantDisponible = parseInt(data.unit) - parseInt(data.inventary_min);
+                if(  parseInt(cantidad) > cantDisponible ){
+                    console.log(parseInt(data.inventary_min) );
+                    console.log(parseInt(data.unit) );
+                    let mensaje = "Cantidad Ingresada:"+ cantidad + ", Cantidad Disponible: "+cantDisponible;
+
+                    swal("Stock Insuficiente", mensaje, 'warning');
+                    esMayor = true;
+                }else{
+                    
+                }
+
+
+            }
+            
+        }
+    )
+        
+    return esMayor;
+
+
+}
+
+function validarProducto() {
+    console.log('validanding')
+    let numbCantidad = document.getElementById("numCantidad").value;
+
+    let categoria = document.getElementById("selectCategory").value;
+
+    if (!categoria.trim()) {
+        swal("Debe seleccionar una Categoria", '', 'warning');
+        console.log('debe ingresar categoria');
+        return false;
+    }
+    if (!numbCantidad.trim()) {
+        swal("Ingresar una Cantidad", '', 'warning');
+        console.log('debe ingresar catnidad');
+        return false
+    }
+
+    let productt = document.getElementById("selectProducto").value;
+    if (!productt.trim()) {
+        swal("Debe seleccionar un Producto", '', 'warning');
+        console.log('debe ingresar producto');
+        return false
+    }
+
+    if(validarStock( numbCantidad,productt) ){
+       
+         
+        return false
+    }  
+  
+
+
+    return true;
+
+
+}
+
+
+
+function validarProduccion() {
+
+}
+
 
 const miVariableEnJavaScript = "<?php echo $id_temporal; ?>";
 document.getElementById("idgenerado").value = miVariableEnJavaScript + "";
 document.getElementById("idTemp").value = miVariableEnJavaScript + "";
 </script>
+

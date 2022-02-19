@@ -7,9 +7,9 @@ $categ = $_POST['Categoria'];
 $listproductos = ProductData::getAllByCategoryId($categ);
 
 ?>
-
+ 
 <label for="exampleInputPassword1">Seleccione Producto: </label>
-<select name="id_producto" class="form-control">
+<select name="id_producto" id="selectProducto" class="form-control">
     <option value="">-- NINGUNA --</option>
     <?php foreach($listproductos as $product):?>
     <option value="<?php echo $product->id;?>"><?php echo $product->name;?></option>

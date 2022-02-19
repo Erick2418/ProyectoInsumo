@@ -33,14 +33,33 @@ class ProductionProduct {
 
 // partiendo de que ya tenemos creado un objecto CategoryData previamente utilizamos el contexto
 	public function updateIdProduction($idProducto,$idProduccion){
-		//$sql = "update ".self::$tablename." set name=\"$this->name\" where id=$this->id";
+		//$sql = "update product_production set name=\"$this->name\" where id=$this->id";
 		$sql = "UPDATE ".self::$tablename." SET id_produccion=\"$idProduccion\" WHERE id=$idProducto";
 		//echo $sql ;
 		
 		Executor::doit($sql);
 	}
- 
+	public function getCantidadARestar($idProducto){
+	//	$sql = "SELECT MAX(id) AS id FROM production;";
+	//
+		$sql = "SELECT cantidad,idProducto FROM product_production WHERE id= $idProducto";
+		$query = Executor::doit($sql);
+		$found = null;
+		$data = new ProductData();
+		while($r = $query[0]->fetch_array()){
+			$data->idProducto = $r['idProducto'];
+			$data->cantidad = $r['cantidad'];
+		
+			$found = $data;
+			break;
+		}
+		
+		return $found;
 
+
+
+	}
+	
 	public static function getById($id){
 	/*	$sql = "select * from ".self::$tablename." where id=$id";
 		$query = Executor::doit($sql);
