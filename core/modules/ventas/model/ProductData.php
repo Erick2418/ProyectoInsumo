@@ -173,6 +173,7 @@ class ProductData {
 		}
 		return $array;
 	}
+	
 
 	public static function getAllByCategoryId($category_id){
 		$sql = "select * from ".self::$tablename." where category_id=$category_id order by created_at desc";

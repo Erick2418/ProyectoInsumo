@@ -16,6 +16,7 @@ class ProductionProduct {
 		$sql = "insert into product_production (idProducto,cantidad,id_temp,condicion) ";
 		//$sql .= "value (\"$this->name\",$this->num_lot)";
         $sql .= "value (\"$this->idProducto\",\"$this->cantidad\",$this->id_temp,1)";
+	
 		Executor::doit($sql);
 	}
 
@@ -38,7 +39,7 @@ class ProductionProduct {
 		
 		Executor::doit($sql);
 	}
-
+ 
 
 	public static function getById($id){
 	/*	$sql = "select * from ".self::$tablename." where id=$id";

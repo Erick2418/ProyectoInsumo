@@ -7,7 +7,7 @@
 //    document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 </script>
-
+ 
 <div class="row">
     <div class="col-md-12">
         <div class="btn-group  pull-right">
@@ -34,7 +34,7 @@ document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                 <th>Fecha Fin</th>
                 <th>Novedad</th>
                 <th>Estado de la Producción</th>
-                <th></th>
+                <th>Acciones</th>
 
             </thead>
 
@@ -48,9 +48,9 @@ document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                 <td><?php echo $product->id_labores ?></td>
                 <td><?php echo $product->fecha_inicio ?></td>
                 <td><?php echo $product->fecha_fin ?></td>
-                <td>IN PROGRESS</td>
                 
                 <td>Ingresar Novedad <a href="index.php?view=newnovedad"> </a><i class="fa fa-tasks"></i></td>
+                <td>IN PROGRESS</td>
 
                 <td style="width:70px;">
 

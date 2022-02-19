@@ -16,3 +16,4 @@ $listproductos = ProductData::getAllByCategoryId($categ);
     <?php endforeach;?>
 </select>
              
+ 

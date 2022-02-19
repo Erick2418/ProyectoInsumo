@@ -162,7 +162,7 @@ if(!isset($_COOKIE["var_cookie"])) {
             </div>
 
             <!-- style="display:none" -->
-            <div class="form-group" style="display:none;">
+            <div class="form-group" >
                 <label for="idTemp" class="col-lg-2 control-label">idTemp</label>
                 <div class="col-md-6">
                     <input type="text" name="idTemp" class="form-control"  id="idTemp" placeholder="idTemp">
@@ -181,7 +181,7 @@ if(!isset($_COOKIE["var_cookie"])) {
             <!--- =======================
                 PANEL PRODUCTOS
             ================================ -->
-
+ 
             <div class="panel panel-info">
                 <div class="panel-heading">Productos e Insumos</div>
                 <div class="panel-body">
