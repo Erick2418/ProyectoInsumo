@@ -8,6 +8,7 @@ class NovedadData {
         $this->id ="";
         $this->fecha_novedad ="";
         $this->id_produccion =0;
+		$this->id_subProduccion	=0;
         $this->id_tipoNovedad=0;
         $this->descripcion =0;
         $this->valor =0;
@@ -15,9 +16,9 @@ class NovedadData {
 
 	public function add(){
  
-		$sql = "insert into novelty (fecha_novedad,id_produccion,id_tipoNovedad,descripcion,valor ) ";
+		$sql = "insert into novelty (fecha_novedad,id_produccion,id_subProduccion,id_tipoNovedad,descripcion,valor ) ";
 		//$sql .= "value (\"$this->name\",$this->num_lot)";
-        $sql .= "value (\"$this->fecha_novedad\",\"$this->id_produccion\",\"$this->id_tipoNovedad\",\"$this->descripcion\",\"$this->valor\")";
+        $sql .= "value (\"$this->fecha_novedad\",\"$this->id_produccion\",\"$this->id_subProduccion\",\"$this->id_tipoNovedad\",\"$this->descripcion\",\"$this->valor\")";
 		echo $sql;
 		Executor::doit($sql);
 	}
@@ -78,6 +79,25 @@ class NovedadData {
 	}
 
 
+	public static function getAllNovedades($idProduccion){
+		$sql = "SELECT * FROM novelty WHERE status = 1 AND id_subProduccion = $idProduccion";
+		$query = Executor::doit($sql);
+		$array = array();
+		$cnt = 0;
+		while($r = $query[0]->fetch_array()){
+			$array[$cnt] = new NovedadData();
+			$array[$cnt]->id = $r['id'];
+			$array[$cnt]->fecha_novedad = $r['fecha_novedad'];
+			$array[$cnt]->id_produccion = $r['id_produccion'];
+            $array[$cnt]->id_subProduccion = $r['id_subProduccion'];
+			$array[$cnt]->id_tipoNovedad = $r['id_tipoNovedad'];
+			$array[$cnt]->descripcion = $r['descripcion'];
+			$array[$cnt]->valor = $r['valor'];
+			$cnt++;
+		}
+		return $array;
+	}
+
 	public static function getLike($q){
 		/*$sql = "select * from ".self::$tablename." where name like '%$q%'";
 		$query = Executor::doit($sql);
@@ -92,6 +112,17 @@ class NovedadData {
 		}
 		return $array;*/
 	}
+
+	
+    public function idLaborGET($idProduccion, $idLabores){
+		$sql = "SELECT id FROM subproduccion WHERE idProduccion = $idProduccion AND id_labores = $idLabores";
+		$query = Executor::doit($sql);
+		$array = array();
+		$cnt = 0;
+		$r = $query[0]->fetch_array();
+		return $r;
+	}
+    
 
 
 }

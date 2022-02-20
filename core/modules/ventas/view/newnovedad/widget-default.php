@@ -26,6 +26,17 @@ $tipoNovedades = CategoryData::getTipoNovedad();
                         </select>
                     </div>
                 </div>
+                
+                <div class="form-group" style="display:none">
+                    <label for="inputEmail1" class="col-lg-2 control-label">Producción*</label>
+                    <div class="col-md-6">
+                    <input style="display:none"  type="text" value= "<?php  echo $_GET['id_lote']; ?>" name="id_lote" class="form-control"  id="id_lote">
+                        <select name="id_lote" class="form-control" disabled>
+                            <option value=""> <?php  echo $_GET['id']; ?> </option>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label for="inputEmail1" class="col-lg-2 control-label">Tipo de Costo</label>
                     <div class="col-md-6">

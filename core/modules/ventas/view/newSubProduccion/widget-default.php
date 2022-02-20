@@ -1,86 +1,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<style>
-/* Center the loader */
-#loader {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    z-index: 1;
-    width: 120px;
-    height: 120px;
-    margin: -76px 0 0 -76px;
-    border: 16px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 16px solid #3498db;
-    -webkit-animation: spin 2s linear infinite;
-    animation: spin 2s linear infinite;
-}
 
-@-webkit-keyframes spin {
-    0% {
-        -webkit-transform: rotate(0deg);
-    }
-
-    100% {
-        -webkit-transform: rotate(360deg);
-    }
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-/* Add animation to "page content" */
-.animate-bottom {
-    position: relative;
-    -webkit-animation-name: animatebottom;
-    -webkit-animation-duration: 1s;
-    animation-name: animatebottom;
-    animation-duration: 1s
-}
-
-@-webkit-keyframes animatebottom {
-    from {
-        bottom: -100px;
-        opacity: 0
-    }
-
-    to {
-        bottom: 0px;
-        opacity: 1
-    }
-}
-
-@keyframes animatebottom {
-    from {
-        bottom: -100px;
-        opacity: 0
-    }
-
-    to {
-        bottom: 0;
-        opacity: 1
-    }
-}
-
-#myDiv {
-    display: none;
-    text-align: center;
-}
-</style>
 <?php 
-
-if(!isset($_COOKIE["var_cookie"])) {
-    // No existe la cookie
-    $cookie_value =mt_rand(1,100000);
-    setcookie("var_cookie", $cookie_value,  time() + 10000 , "/");
-}
+ 
 // Cargando Combos
 $categories = CategoryData::getAll();
 $users = PersonData::getClients();
@@ -88,72 +9,73 @@ $lots = LotData::getAll();
 $labores = LaboresData::getAll();
 
   
-$productProduction = ProductionProduct::getAll();
-$id_temporal = " ";
-if(!isset($_COOKIE["var_cookie"])) {
-    header("refresh:1;url=index.php?view=newproduccion" );
-    echo " <script> console.log('NO HAY COOKIE');   </script>";
-    echo "<div id='loader'></div>";
-    die();
- }else{
-    echo " <script> console.log('SI HAY COOKIE');   </script>";
-    $id_temporal = $_COOKIE["var_cookie"];    
- }
- 
-   
+$productProduction = ProductionProduct::getAllByProduccion($_GET['id']);
+
+
 $stockProductos = ProductData::getAllProductFromCantidad();
- 
+
+$subProcesoData = SubProductionData::getAll($_GET['id']);
+
+
+$produccionDataa = ProductionData::getById($_GET['id']);
+$id_temporal =$_GET['id'];
+
 
 ?>
 
 
 <div class="row animate-bottom" id="divMain">
     <div class="col-md-12">
-        <h1>Nueva Producción</h1>
+        <h1>Producción: <?php echo $_GET['id'] ?></h1>
         <br>
         <form class="form-horizontal" method="post" enctype="multipart/form-data" id="addproduct"
-            action="index.php?view=addProducciong" onsubmit="return validarProduccion()" role="form">
+            action="index.php?view=addSubProduccion" onsubmit="return validarProduccion()" role="form">
 
-
-            <div class="form-group">
-                <label for="inputEmail1" class="col-lg-2 control-label">Lote*</label>
-                <div class="col-md-6">
-                    <select name="lote_id" id="selectLote" class="form-control">
-                        <option value="">-- NINGUNA --</option>
-                        <?php foreach($lots as $lot):?>
-                        <option value="<?php echo $lot->id;?>"><?php echo $lot->name;?></option>
-                        <?php endforeach;?>
-                    </select>
-                </div>
-            </div>
             <div class="form-group">
                 <label for="inputEmail1" class="col-lg-2 control-label">Labor*</label>
                 <div class="col-md-6">
                     <select name="labores_id" id="selectLabor" class="form-control">
                         <option value="">-- NINGUNA --</option>
                         <?php 
-                        $fistValor = 0;
-                        
+                        $contador = 0;
+                        $bandera = 0;
+                        $contadorBandera = 0;
                         foreach($labores as $labor){
-                            $fistValor= $fistValor+1;
-
-
-                            if($fistValor == 1){
+                            $contador ++;
+                            
+                            if($labor->idlabores == $subProcesoData[0]->id_labores ){
+                                $bandera= 1;
                                 ?>
-                                <option selected value="<?php echo $labor->idlabores;?>"><?php echo $labor->nombre;?></option>
-                                <?php 
-        
+                        <option disabled style="background-color: #b9b7b7;" value="<?php echo $labor->idlabores;?>">
+                            <?php echo $labor->nombre;?></option>
+                        <?php 
                             }else{
-                            ?>
-                        <option  disabled value="<?php echo $labor->idlabores;?>"><?php echo $labor->nombre;?></option>
+
+                                if(  $bandera == 1){
+                                   
+                                    ?>
+
+                        <option selected  value="<?php echo $labor->idlabores;?>"><?php echo $labor->nombre;?></option>
+
+
+                        <?php 
+                         $bandera = 0;
+                                }else{
+
+
+                                    ?>
+
+                        <option disabled style="background-color: #b9b7b7;" value="<?php echo $labor->idlabores;?>">
+                            <?php echo $labor->nombre;?></option>
+
+
                         <?php 
 
-
+                                }
                             }
-
-
-
-                    };?>
+                        }
+                             
+                            ?>
                     </select>
                 </div>
             </div>
@@ -163,16 +85,33 @@ $stockProductos = ProductData::getAllProductFromCantidad();
                 <div class="col-md-6">
                     <select name="empleado_id" id="selectEmpleado" class="form-control">
                         <option value="">-- NINGUNA --</option>
-                        <?php foreach($users as $user):?>
+                        <?php foreach($users as $user){
+                             if($user->id == $subProcesoData[0]->id_empleado ){
+
+                                ?>
+                                <option selected  value="<?php echo $user->id;?>"><?php echo $user->name;?></option>
+                                <?php 
+                            
+
+                             }
+
+                            
+                            ?>
                         <option value="<?php echo $user->id;?>"><?php echo $user->name;?></option>
-                        <?php endforeach;?>
+                        <?php 
+                    
+                    
+                    }
+                    
+                    ?>
                     </select>
                 </div>
             </div>
+
             <div class="form-group">
-                <label for="inputEmail1" class="col-lg-2 control-label">Fecha Comienzo*</label>
+                <label for="inputEmail1"  class="col-lg-2 control-label">Fecha Comienzo*</label>
                 <div class="col-md-6">
-                    <input onchange="myFunction()" type="date" name="inputFechaComienzo" class="form-control"
+                    <input value="<?php echo $produccionDataa->fecha_inicio;?>" readonly type="date" name="inputFechaComienzo" class="form-control"
                         id="inputFechaComienzo" placeholder="Descripción">
                 </div>
             </div>
@@ -180,8 +119,7 @@ $stockProductos = ProductData::getAllProductFromCantidad();
             <div class="form-group">
                 <label for="inputEmail1" class="col-lg-2 control-label">Fecha Fin*</label>
                 <div class="col-md-6">
-                    <input type="date" name="inputFechaFin" min="2014-05-11" class="form-control" id="inputFechaFin"
-                        placeholder="Descripción">
+                    <input  type="date" name="inputFechaFin" value="<?php echo  date("Y-m-d", strtotime($produccionDataa->fecha_fin));?>" min="<?php  echo  date("Y-m-d", strtotime($produccionDataa->fecha_inicio)); ?>" class="form-control" id="inputFechaFin">
                 </div>
             </div>
 
@@ -220,8 +158,8 @@ $stockProductos = ProductData::getAllProductFromCantidad();
                             <th>idProducto</th>
                             <th>Cantidad</th>
                             <th>Nombre</th>
-                            <th style="display:none;" >IdTemp</th>
-                           
+                            <th style="display:none;">IdTemp</th>
+                          
                         </thead>
                         <tbody id="tableProductos">
 
@@ -235,7 +173,7 @@ $stockProductos = ProductData::getAllProductFromCantidad();
                                 <td><?php echo $pp->idProducto; ?></td>
                                 <td><?php echo $pp->cantidad; ?></td>
                                 <td><?php echo $pp->name; ?></td>
-                                <td style="display:none;" ><?php echo $pp->id_temp; ?></td>
+                                <td style="display:none;"><?php echo $pp->id_temp; ?></td>
                                 
                             <tr>
                                 <?php
@@ -279,7 +217,7 @@ $stockProductos = ProductData::getAllProductFromCantidad();
             <div class="modal-body">
 
                 <form class="form-horizontal" method="post" enctype="multipart/form-data" id="addCategory"
-                    action="index.php?view=addProductProduccion" onsubmit="return validarProducto()" role="form">
+                    action="index.php?view=addProductSubProduccion" onsubmit="return validarProducto()" role="form">
 
                     <div class="form-group" style="display:none;">
 
@@ -356,9 +294,9 @@ $stockProductos = ProductData::getAllProductFromCantidad();
 var IdProductos = [];
 
 function myFunction() {
-    var fehaInicio = document.getElementById("inputFechaComienzo").value;
-    var fechaFin = document.getElementById("inputFechaFin");
-    fechaFin.min = fehaInicio;
+  //  var fehaInicio = document.getElementById("inputFechaComienzo").value;
+  //  var fechaFin = document.getElementById("inputFechaFin");
+   // fechaFin.min = fehaInicio;
 }
 
 function agregarDatosFormulario() {
@@ -441,14 +379,14 @@ function validarProducto() {
         return false
     }
 
-
+/*
     if (validarProductoRepetido(productt)) {
         swal("El producto ya esta ingresado", '', 'warning');
         console.log('debe ingresar producto');
         return false;
     }
 
-
+*/
     if (validarStock(numbCantidad, productt)) {
         return false
     }

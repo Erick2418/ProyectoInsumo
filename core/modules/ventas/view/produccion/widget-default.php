@@ -1,12 +1,13 @@
 <?php
 	$producciones = ProductionData::getAll();
+
 ?>
 
 <script>
 //    document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 </script>
- 
+
 <div class="row">
     <div class="col-md-12">
         <div class="btn-group  pull-right">
@@ -27,6 +28,7 @@ document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         <br>
         <table class="table table-bordered table-hover">
             <thead>
+                <th>Histórico</th>
                 <th>Lote</th>
                 <th>labor</th>
                 <th>Fecha Comienzo</th>
@@ -43,26 +45,69 @@ document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             <?php
 			foreach($producciones as $product){  ?>
             <tr>
-                <td><?php echo $product->id_lote ?></td>
-                <td><?php echo $product->id_labores ?></td>
+                <td>
+                    <a href="index.php?view=historicosProducciones&amp;id=<?php echo $product->id; ?>"
+                        class="btn btn-xs btn-success"><i class="fa fa-check"></i></a>
+                </td>
+                <td><?php 
+                $loteData = LotData::getById($product->id_lote);
+                echo $loteData->name;
+                ?></td>
+                <td>
+                    <?php 
+                    
+                   
+                    $loteData = LaboresData::getById($product->id_labores);
+                    echo $loteData->nombre;
+                    
+                    ?>
+
+
+                </td>
                 <td><?php echo $product->fecha_inicio ?></td>
                 <td><?php echo $product->fecha_fin ?></td>
-                
-                <td>Ingresar Novedad 
-                    <a href="index.php?view=newnovedad&amp;id=<?php echo $product->id; ?>">
+
+                <td>Ingresar Novedad
+                    <a
+                        href="index.php?view=newnovedad&amp;id=<?php echo $product->id; ?>&amp;id_lote=<?php echo $product->id_labores; ?>">
                         <i class="fa fa-tasks"></i>
                     </a>
                 </td>
+
                 <td><?php echo $product->estadoProduccion ?></td>
 
-                <td style="width:70px;">
+                <td style="width:90px;">
 
-                    <a href="../products/index.php?view=editproduct&amp;id=<?php //echo $product->id; ?>"
-                        class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
-                    <a href="../products/index.php?view=delproduct&amp;id=<?php //echo $product->id; ?>"
+                    <?php 
+                        if( $product->id_labores != 3  ){ ?>
+                    <a style="margin: 5px;" href="index.php?view=newSubProduccion&amp;id=<?php echo $product->id; ?>"
+                        class="btn btn-xs btn-success"><i class="glyphicon glyphicon-refresh"></i></a>
+
+                    <?php
+
+                        }
+                        
+                        ?>
+
+                    <a style="margin: 5px;" href="index.php?view=delproduct&amp;id=<?php //echo $product->id; ?>"
                         class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-                        <a href="index.php?view=totalProduccion&amp;id=<?php echo $product->id; ?>"
-                        class="btn btn-xs btn-success"><i class="fa fa-check"></i></a>
+
+                    <?php 
+                        
+                        
+                        if( $product->id_labores == 3  ){ ?>
+
+                    <a style="margin: 5px;" href="index.php?view=totalProduccion&amp;id=<?php echo $product->id; ?>"
+                        class="btn btn-xs btn-info"><i class="fa fa-check"></i></a>
+
+
+                    <?php
+
+                        }
+                        
+                        ?>
+                    <!-- <a style="margin: 5px;" href="index.php?view=totalProduccion&amp;id=<?php //echo $product->id; ?>"
+                        class="btn btn-xs btn-info"><i class="fa fa-check"></i></a> -->
 
                 </td>
 
@@ -71,15 +116,6 @@ document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 			}
 
 			?>
-
-
-
-
-
-
-
-
-
 
 
 

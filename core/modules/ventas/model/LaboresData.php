@@ -53,7 +53,6 @@ class LaboresData {
 	}
 
 
-
 	public static function getAll(){
 		$sql = "select * from ".self::$tablename." where condicion = 1";
 		$query = Executor::doit($sql);

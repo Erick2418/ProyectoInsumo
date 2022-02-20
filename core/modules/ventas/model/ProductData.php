@@ -224,6 +224,23 @@ echo "<br>";
 		return $array;
 	}
 
+	public static function getBySubProduccion($idSub){
+		$sql = "SELECT prod.id as id, prodc.name as name FROM product_production as prod INNER JOIN product as prodc ON prod.idProducto = prodc.id WHERE prod.id_subProduccion = $idSub;";
+
+		$query = Executor::doit($sql);
+		$array = array();
+		$cnt = 0;
+		while($r = $query[0]->fetch_array()){
+			$array[$cnt] = new ProductData();
+			$array[$cnt]->id = $r['id'];
+			$array[$cnt]->name = $r['name'];
+	
+			$cnt++;
+		}
+		
+		return $array;
+	}
+
 
 
 	public static function getAllProductFromCantidad(){

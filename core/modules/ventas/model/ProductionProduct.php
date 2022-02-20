@@ -16,7 +16,16 @@ class ProductionProduct {
 		$sql = "insert into product_production (idProducto,cantidad,id_temp,condicion) ";
 		//$sql .= "value (\"$this->name\",$this->num_lot)";
         $sql .= "value (\"$this->idProducto\",\"$this->cantidad\",$this->id_temp,1)";
-	
+		
+		Executor::doit($sql);
+	}
+
+	public function addProductSubProduccion(){
+		$sql = "insert into product_production (idProducto,cantidad,id_produccion,id_temp,id_subProduccion ) ";
+		//$sql .= "value (\"$this->name\",$this->num_lot)";
+        $sql .= "value (\"$this->idProducto\",\"$this->cantidad\",$this->id_temp,$this->id_temp,$this->id_temp)";
+		 
+
 		Executor::doit($sql);
 	}
 
@@ -86,13 +95,14 @@ class ProductionProduct {
           // echo $valor_cookie;
         }
 
-		$sql = "select * from ".self::$tablename." where id_temp = ".$valor_cookie;
+		$sql = "SELECT pp.id, pp.idProducto, pp.cantidad, pp.id_temp, pp.condicion, pp.id_produccion, prod.name FROM product_production as pp INNER JOIN product as prod ON pp.idProducto = prod.id WHERE id_temp = $valor_cookie";
+		 
 
 		$query = Executor::doit($sql);
 
 		$array = array();
 		$cnt = 0;
-       
+      
         while($r = $query[0]->fetch_array()){
             $array[$cnt] = new ProductionProduct();
             $array[$cnt]->id = $r['id'];
@@ -100,11 +110,40 @@ class ProductionProduct {
             $array[$cnt]->cantidad = $r['cantidad'];
             $array[$cnt]->condicion = $r['condicion'];
             $array[$cnt]->id_temp = $r['id_temp'];
+			$array[$cnt]->name = $r['name'];
+			
+
             $cnt++;
         }
 		return $array;
 	}
 
+	public static function getAllByProduccion($idProduccion){
+		//    echo "Value is:";
+	 
+			$sql = "SELECT pp.id, pp.idProducto, pp.cantidad, pp.id_temp, pp.condicion, pp.id_produccion, prod.name FROM product_production as pp INNER JOIN product as prod ON pp.idProducto = prod.id WHERE id_produccion = $idProduccion";
+			 
+	
+			$query = Executor::doit($sql);
+	
+			$array = array();
+			$cnt = 0;
+		  
+			while($r = $query[0]->fetch_array()){
+				$array[$cnt] = new ProductionProduct();
+				$array[$cnt]->id = $r['id'];
+				$array[$cnt]->idProducto = $r['idProducto'];
+				$array[$cnt]->cantidad = $r['cantidad'];
+				$array[$cnt]->condicion = $r['condicion'];
+				$array[$cnt]->id_temp = $r['id_temp'];
+				$array[$cnt]->name = $r['name'];
+				
+	
+				$cnt++;
+			}
+			return $array;
+		}
+	
 
 	public static function getLike($q){
 	

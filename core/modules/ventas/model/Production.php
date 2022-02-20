@@ -22,13 +22,29 @@ class ProductionData {
 		//$sql .= "value (\"$this->name\",$this->num_lot)";
         $sql .= "value (\"$this->id_lote\",\"$this->fecha_inicio\",\"$this->fecha_fin\",\"$this->id_empleado\",\"$this->id_labores\",\"$this->id_productProduction\")";
         Executor::doit($sql);
-
-		// ACTUALIZANDO STOK
-		// Como son varios productos ingresados a todos se les tiene que restar el stok
-		// UPDATE `product` SET unit=  WHERE id = 
-
+		
+		// insertamos los mismos registrsoa la otra tabla
 
 	}
+
+	public function addSubProduccion($idProduccion){
+		
+		$sql = "insert into subproduccion (fecha_fin,id_empleado,id_labores,id_productProduction,idProduccion)";
+		//$sql .= "value (\"$this->name\",$this->num_lot)";
+        $sql .= "value (\"$this->fecha_fin\",\"$this->id_empleado\",\"$this->id_labores\",\"$this->id_productProduction\",\"$idProduccion\")";
+      
+		Executor::doit($sql);
+	}
+    public function lastIdSubProduccion(){
+		$sql = "SELECT MAX(id) AS id FROM subproduccion;";
+		$query = Executor::doit($sql);
+		$array = array();
+		$cnt = 0;
+		$r = $query[0]->fetch_array();
+		return $r;
+	}
+    
+
     public function lastId(){
 		$sql = "SELECT MAX(id) AS id FROM production;";
 		$query = Executor::doit($sql);
@@ -57,22 +73,28 @@ class ProductionData {
 		
 		Executor::doit($sql);
 	}
-
+//UPDATE `production` SET `fecha_fin`='[value-4]',`id_labores`='[value-6]' WHERE 1
+		// insertamos los mismos registrsoa la otra tabla
+		public function updateFechaLabores(){
+			//$sql = "update ".self::$tablename." set name=\"$this->name\" where id=$this->id";
+			$sql = "update ".self::$tablename." set fecha_fin=\"$this->fecha_fin\",id_labores=\"$this->id_labores\" where id=$this->id";
+			
+			Executor::doit($sql);
+		}
 
 	public static function getById($id){
-	/*	$sql = "select * from ".self::$tablename." where id=$id";
+		$sql = "select * from ".self::$tablename." where id=$id";
 		$query = Executor::doit($sql);
 		$found = null;
 		$data = new ProductionData();
 		while($r = $query[0]->fetch_array()){
 			$data->id = $r['id'];
-			$data->name = $r['name'];
-			$data->num_lot = $r['num_lot'];
-			$data->dimension = $r['dimension'];
+			$data->fecha_inicio = $r['fecha_inicio'];
+			$data->fecha_fin = $r['fecha_fin'];
 			$found = $data;
 			break;
 		}
-		return $found;*/
+		return $found;
 	}
 
 
@@ -113,6 +135,9 @@ class ProductionData {
 		}
 		return $array;*/
 	}
+
+
+	
 
 
 }

@@ -16,6 +16,15 @@ if(count($_POST)>0){
   $idProduction = $produccion->lastId();
  
   $idProduccion =  $idProduction[0];
+
+
+ $produccion->addSubProduccion($idProduccion);
+ 
+
+ $idSubProduccionArray = $produccion->lastIdSubProduccion();
+ $idSubProduccion = $idSubProduccionArray[0];
+
+
   $productos = $_POST["idsproductos"];
   $arrayIdProductos = explode(",", $productos);
  
@@ -23,13 +32,19 @@ if(count($_POST)>0){
 //  
 	$productModel = new  ProductData();
 
+  
+  $subProduccionModel = new SubProductionData();
+
   $stockActuala = 0;
 
-  foreach ($arrayIdProductos as $producto) { // array de product_produccion
+  foreach ($arrayIdProductos as $idProductProduccionn) { // array de product_produccion
 
-    $productProducction->updateIdProduction($producto,$idProduccion );
+    $productProducction->updateIdProduction($idProductProduccionn,$idProduccion );
+
+    $subProduccionModel->updateIdSubProduccion($idProductProduccionn,$idSubProduccion );
+
       // vamos a traer la cantidad y restarla del stock
-    $cantidadArry= $productProducction->getCantidadARestar($producto);
+    $cantidadArry= $productProducction->getCantidadARestar($idProductProduccionn);
     $cantidadARestar =  $cantidadArry->cantidad;
     $idProductoARestar = $cantidadArry->idProducto;
  
