@@ -79,6 +79,29 @@ class NovedadData {
 	}
 
 
+
+	public static function getAllNovedd(){
+		$sql = "select * from ".self::$tablename." ";
+		$query = Executor::doit($sql);
+		$array = array();
+		$cnt = 0;
+		while($r = $query[0]->fetch_array()){
+			$array[$cnt] = new NovedadData();
+			$array[$cnt]->id = $r['id'];
+			$array[$cnt]->fecha_novedad = $r['fecha_novedad'];
+			$array[$cnt]->id_produccion = $r['id_produccion'];
+            $array[$cnt]->id_subProduccion = $r['id_subProduccion'];
+			$array[$cnt]->id_subProduccion = $r['id_subProduccion'];
+            $array[$cnt]->id_tipoNovedad = $r['id_tipoNovedad'];
+            $array[$cnt]->descripcion = $r['descripcion'];
+			$array[$cnt]->valor = $r['valor'];
+
+			$cnt++;
+		}
+		return $array;
+	}
+
+
 	public static function getAllNovedades($idProduccion){
 		$sql = "SELECT * FROM novelty WHERE status = 1 AND id_subProduccion = $idProduccion";
 		$query = Executor::doit($sql);

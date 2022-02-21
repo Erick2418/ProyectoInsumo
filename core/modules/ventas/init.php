@@ -22,6 +22,7 @@ include "core/modules/".Module::$module."/model/Production.php";
 include "core/modules/".Module::$module."/model/NovedadData.php";
 include "core/modules/".Module::$module."/model/Produccion_Total.php";
 include "core/modules/".Module::$module."/model/SubProductionData.php";
+include "core/modules/".Module::$module."/model/TipoNovedadData.php";
 
 session_start();
 ob_start();

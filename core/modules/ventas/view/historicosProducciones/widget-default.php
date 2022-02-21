@@ -22,9 +22,9 @@ document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             <thead>
                 
                 <th>Lote</th>
-                <th>labor</th>
+                <th>Labor</th>
                 <th>Empleador</th>
-                <th>Producto</th>
+                <th>Productos</th>
                 <th>Novedades</th>
 
             </thead>
@@ -43,8 +43,8 @@ document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                     <?php
                     $nameProductos = ProductData::getBySubProduccion( $product->status);
                     foreach($nameProductos as $nameProduct){ 
-                        echo $nameProduct->name;
-                        echo ", ";
+                        echo "<li>$nameProduct->name</li>";
+                        //echo ", ";
                     }
                     $nameProductos=null;
                     ?>
@@ -58,8 +58,8 @@ document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                     $novedades = NovedadData::getAllNovedades( $product->status);
 
                     foreach($novedades as $novedad){ 
-                        echo $novedad->descripcion;
-                        echo ", ";
+                        echo "<li>$novedad->descripcion</li>";
+                       
                     }
                     $novedades= null;
                     ?>

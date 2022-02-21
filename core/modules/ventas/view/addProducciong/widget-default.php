@@ -35,6 +35,8 @@ if(count($_POST)>0){
   
   $subProduccionModel = new SubProductionData();
 
+  $operacionInvetnarioModel = new OperationData();
+
   $stockActuala = 0;
 
   foreach ($arrayIdProductos as $idProductProduccionn) { // array de product_produccion
@@ -54,7 +56,9 @@ if(count($_POST)>0){
  
     $stockActuala = $unidadesActuales  - $cantidadARestar; 
     $productModel->updateCantidad($stockActuala, $idProductoARestar );
-    
+
+    $operacionInvetnarioModel->addByProduccion($idProductoARestar,$cantidadARestar);
+
   }
 
 print "<script>window.location='index.php?view=produccion';</script>";

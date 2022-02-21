@@ -122,7 +122,7 @@ class SubProductionData {
 	 
 
 	public static function getAllById($idProduccion){
-		$sql = "SELECT subp.id as id, per.name as name, lab.nombre as nombre, subp.id_productProduction as idprodctt, subp.idProduccion as productts, lote.name as nombrelote FROM subproduccion as subp INNER JOIN person as per ON subp.id_empleado = per.id INNER JOIN labores as lab ON subp.id_labores = lab.idlabores INNER JOIN production as prod ON subp.idProduccion = prod.id INNER JOIN lot as lote ON prod.id_lote = lote.id WHERE subp.idProduccion = $idProduccion;";
+		$sql = "SELECT subp.id as id, per.name as name, lab.nombre as nombre, subp.id_productProduction as idprodctt, subp.idProduccion as productts, lote.name as nombrelote FROM subproduccion as subp INNER JOIN person as per ON subp.id_empleado = per.id INNER JOIN labores as lab ON subp.id_labores = lab.idlabores INNER JOIN production as prod ON subp.idProduccion = prod.id INNER JOIN lot as lote ON prod.id_lote = lote.id WHERE subp.idProduccion = $idProduccion ORDER BY subp.id ASC";
 		$query = Executor::doit($sql);
 		$array = array();
 		$cnt = 0;

@@ -66,6 +66,21 @@ class ProductionData {
 		Executor::doit($sql);
 	}
 
+	public function deleteLogico(){
+		//$sql = "delete from ".self::$tablename." where id=$this->id";
+		$sql = "update ".self::$tablename." set status=0 where id=$this->id";
+		
+		Executor::doit($sql);
+	}
+
+	public function reactivarLogico(){
+		//$sql = "delete from ".self::$tablename." where id=$this->id";
+		$sql = "update ".self::$tablename." set status=1 where id=$this->id";
+		
+		Executor::doit($sql);
+	}
+
+
 // partiendo de que ya tenemos creado un objecto CategoryData previamente utilizamos el contexto
 	public function update(){
 		//$sql = "update ".self::$tablename." set name=\"$this->name\" where id=$this->id";
@@ -100,7 +115,7 @@ class ProductionData {
 
 
 	public static function getAll(){
-		$sql = "select * from ".self::$tablename." where status = 1";
+		$sql = "select * from ".self::$tablename." ";
 		$query = Executor::doit($sql);
 		$array = array();
 		$cnt = 0;
@@ -112,6 +127,7 @@ class ProductionData {
 			$array[$cnt]->fecha_fin = $r['fecha_fin'];
             $array[$cnt]->id_empleado = $r['id_empleado'];
 			$array[$cnt]->id_labores = $r['id_labores']; 
+			$array[$cnt]->status = $r['status']; 
 			$array[$cnt]->id_productProduction = $r['id_productProduction']; 
 			$array[$cnt]->estadoProduccion = $r['estadoProduccion']; 
 			$cnt++;

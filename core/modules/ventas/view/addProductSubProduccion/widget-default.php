@@ -13,6 +13,28 @@ $idProduccion = $_POST['idgenerado'];
   
 	$product->addProductSubProduccion();
 	
+	$productModel = new  ProductData();
+	$operacionInvetnarioModel = new OperationData();
+
+	
+	$idProductoARestar = $_POST["id_producto"];
+    $cantidadActualArray = $productModel->getProducttCantidadById($idProductoARestar);
+    $unidadesActuales = $cantidadActualArray->unit;
+	$cantidadARestar = $_POST["numCantidad"];
+    $stockActuala = $unidadesActuales  - $cantidadARestar; 
+    $productModel->updateCantidad($stockActuala, $idProductoARestar );
+    $operacionInvetnarioModel->addByProduccion($idProductoARestar,$cantidadARestar);
+
+
+
+
+
+
+
+
+
+
+
 print "<script>window.location='index.php?view=newSubProduccion&id=$idProduccion';</script>";
  
  

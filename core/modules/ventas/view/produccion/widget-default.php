@@ -18,7 +18,8 @@ document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                     <i class="fa fa-download"></i> Descargar <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="../products/report/products-word.php">Word 2007 (.docx)</a></li>
+                
+                    <li><a onclick="generarPdf()" >PDF</a></li>
                 </ul>
             </div>
         </div>
@@ -35,6 +36,7 @@ document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                 <th>Fecha Fin</th>
                 <th>Novedad</th>
                 <th>Estado de la Producción</th>
+                <th>Estado</th>
                 <th>Acciones</th>
 
             </thead>
@@ -75,8 +77,17 @@ document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                 </td>
 
                 <td><?php echo $product->estadoProduccion ?></td>
-
-                <td style="width:90px;">
+                <td><?php 
+                
+                if($product->status == 1 ){
+                    echo "Activo";
+                }else{
+                    echo "Inactivo";
+                }
+                
+                
+                ?></td>
+                <td style="width:95px;">
 
                     <?php 
                         if( $product->id_labores != 3  ){ ?>
@@ -87,10 +98,39 @@ document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
                         }
                         
+
+                        if($product->status == 1 ){
+                           ?>
+
+
+<a style="margin: 5px;" href="index.php?view=delProduccionF&amp;id=<?php  echo $product->id; ?>"
+                        class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+
+
+<?php
+                        }else{?> 
+
+
+<a style="margin: 5px;" href="index.php?view=reactivarProduccion&amp;id=<?php echo $product->id; ?>"
+                        class="btn btn-xs btn-success"><i class="fa fa-check"></i></a>
+
+
+<?php
+
+                            
+                        }
+
+
                         ?>
 
-                    <a style="margin: 5px;" href="index.php?view=delproduct&amp;id=<?php //echo $product->id; ?>"
-                        class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+
+
+
+
+
+
+
+
 
                     <?php 
                         
@@ -111,6 +151,9 @@ document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
                 </td>
 
+              
+
+
             <tr>
                 <?php
 			}
@@ -123,3 +166,19 @@ document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         </table>
 
         <br><br><br><br><br><br><br><br><br><br>
+
+        <script>
+
+            
+function generarPdf() {
+    
+    
+    window.open('pdfGENERATOR','_black');
+
+
+
+
+
+}
+
+        </script>
