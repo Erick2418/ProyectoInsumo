@@ -1,6 +1,5 @@
 <?php
 	$producciones = ProductionData::getAll();
-var_dump($producciones);
 ?>
 
 <script>

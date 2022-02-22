@@ -13,14 +13,13 @@ include "./../core/modules/ventas/model/ProductionProduct.php";
 include "./../core/modules/ventas/model/DepresiacionData.php";
 include "./../core/controller/Database.php";
 include "./../core/controller/Executor.php";
+include "./formatsPDF/Producciones.php";
 
     $idProduccion = $_GET['id'];
-    echo "<br>";
-    echo "<br>";echo "<br>";
+  //  echo "<br>";
+   // echo "<br>";echo "<br>";
 
     //Calling to Models
-    
-    
     $produccion_Model = ProductionData::getById( $idProduccion);
     $novedadesProduccion_Model = NovedadData::getAllNovedadesByProduccion( $idProduccion);
     $personProduccion_Model = PersonData::getAllByProduccion( $idProduccion);
@@ -30,7 +29,6 @@ include "./../core/controller/Executor.php";
  
     $aguaCantidad_model = ProductionProduct::getAguaCantidad( $idProduccion);
     $equiposCantidadPrecios_Model = ProductionProduct::getEquiposCantidadPrecio( $idProduccion);//!!!idProducto == PRECIO ENTRADA // cantidad== CANTIDAD // condicion == UNIDAD
- 
     
 
   //  var_dump( $equiposCantidadPrecios_Model );
@@ -118,27 +116,27 @@ include "./../core/controller/Executor.php";
 
    
     // NOVEDAD
-    echo "novedad: ".$totalNovedad."$";
-    echo "<br>";echo "<br>";
+   // echo "novedad: ".$totalNovedad."$";
+   // echo "<br>";echo "<br>";
     //      EMPLEADO
    // echo "Sueldo Empleado: $totalSueldoEmpleado"."$";
    // echo "<br> Dias de produccion: $diasObtenidos";
 //echo "<br>";
-    echo "Empleado: ".  round($totalEmpleado, 2)."$";
-    echo "<br>";echo "<br>";
-    echo "Agua:".$totalAgua."$";
-    echo "<br>";echo "<br>";
-    echo "Insumos:".round($totalInsumo, 2)."$";
-    echo "<br>";echo "<br>";
+  //  echo "Empleado: ".  round($totalEmpleado, 2)."$";
+   // echo "<br>";echo "<br>";
+  //  echo "Agua:".$totalAgua."$";
+  //  echo "<br>";echo "<br>";
+   // echo "Insumos:".round($totalInsumo, 2)."$";
+   // echo "<br>";echo "<br>";
     
-    echo "<br>";echo "<br>";
+   // echo "<br>";echo "<br>";
     for ($i=0; $i < count($arrayProductos); $i++) { 
-        echo "Equipos:".$arrayProductos[$i];
-        echo "<br>";
-        echo "Tiempo:".$arrayProductosMeses[$i]." Meses";
-        echo "<br>"; echo "<br>";
+     //   echo "Equipos:".$arrayProductos[$i];
+    //    echo "<br>";
+    ///    echo "Tiempo:".$arrayProductosMeses[$i]." Meses";
+     //   echo "<br>"; echo "<br>";
     }
-    echo "<br>"; 
+ //   echo "<br>"; 
 
 
 
@@ -147,11 +145,75 @@ include "./../core/controller/Executor.php";
     $TotalProduccion = $totalNovedad + $totalSueldoEmpleado + $totalAgua + $totalInsumo;
 
 
-    echo "Total de Producción: ".round($TotalProduccion, 2)."$";
-    echo "<br>";echo "<br>";
+   // echo "Total de Producción: ".round($TotalProduccion, 2)."$";
+   // echo "<br>";echo "<br>";
+
+ 
+   $pdf = new FPDF();
+    $pdf->AddPage('P', 'A4');
+    $pdf->SetAutoPageBreak(true, 10);
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->SetTopMargin(10);
+    $pdf->SetLeftMargin(10);
+    $pdf->SetRightMargin(10);
+
+
+    /* --- Text --- */
+    $pdf->SetFont('', 'B', 12);
+    $pdf->Text(71, 17, 'COSTO DE PRODUCCION');
+    /* --- Text --- */
+    $pdf->Text(24, 35, 'Produccion No.'.$idProduccion);
+    /* --- Text --- */
+    $pdf->Text(24, 45, 'Novedades: ');
+    $pdf->SetFont('', '', 12);
+    $pdf->Text(80, 45, $totalNovedad."$");
+    
+    /* --- Text --- */
+    $pdf->SetFont('', 'B', 12);
+    $pdf->Text(24, 55, 'Empleado: ');
+    $pdf->SetFont('', '', 12);
+    $pdf->Text(80, 55, $totalSueldoEmpleado."$");
+    
+    /* --- Text --- */
+    $pdf->SetFont('', 'B', 12);
+    $pdf->Text(24, 65, 'Agua: ');
+    $pdf->SetFont('', '', 12);
+    $pdf->Text(80, 65, $totalAgua."$");
+    /* --- Text --- */
+    $pdf->SetFont('', 'B', 12);
+    $pdf->Text(24, 75, 'Insumos: ');
+    $pdf->SetFont('', '', 12);
+    $pdf->Text(80, 75, round($totalInsumo, 2)."$");
+    /* --- Text --- */
+    $pdf->SetFont('', 'B', 12);
+    $pdf->Text(24, 85 , 'Depreciacion de Equipo'  );
+    $dimension = 95;
+    for ($i=0; $i < count($arrayProductos); $i++) { 
+        // $dimension = 110;
+        $pdf->SetFont('', 'B', 12);
+        $pdf->Text(35, $dimension, 'Equipo: '  );
+        $pdf->SetFont('', '', 12);
+        $pdf->Text(55, $dimension, $arrayProductos[$i]  );
+        $pdf->SetFont('', 'B', 12);
+        $dimension +=8; 
+        
+        $pdf->Text(35,$dimension , 'Tiempo:' );
+        $pdf->SetFont('', '', 12);
+        $pdf->Text(55,$dimension , $arrayProductosMeses[$i]  );
+        $dimension +=8; 
+
+       }
 
 
 
+    /* --- Text --- */
+    $pdf->SetFont('', 'B', 12);
+    $pdf->Text(24, $dimension+7, 'Total Costo de Produccion: '  );
+    $pdf->SetFont('', '', 12);
+    $pdf->Text(80, $dimension+7, round($TotalProduccion, 2)."$" );
+
+    $pdf->Output('created_pdf.pdf','I');
+    
     function dias_transcurridos($fechaInicio,$fechaFin) {
    
         $datetime1 = date_create($fechaInicio);
@@ -160,4 +222,5 @@ include "./../core/controller/Executor.php";
         $differenceFormat = '%a';       
         return $DiasTranscurridos->format($differenceFormat);
     }
+
 ?>

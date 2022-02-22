@@ -21,21 +21,21 @@ include "./../core/controller/Executor.php";
   //  echo "<br>";echo "<br>";
 
 
-    var_dump($_GET['id']);
+    //var_dump($_GET['id']);
     $idProduccionGet = $_GET['id'];
 
     //Models
     $produccion_Model = TotalProduccion2::getById( $idProduccionGet);
         
-    var_dump(  $produccion_Model);
+   // var_dump(  $produccion_Model);
     $costoProduccion = GenerarCostoProduccion($idProduccionGet);
-    echo $costoProduccion;
+  //  echo $costoProduccion;
 
 
     $costoUnitario = $costoProduccion /  $produccion_Model->total_produccion;
 
-    echo "<br>";
-    echo $costoUnitario;
+    //echo "<br>";
+   // echo $costoUnitario;
 
 
 
@@ -43,8 +43,76 @@ include "./../core/controller/Executor.php";
 
 
 
-    echo "<br>";
-    echo $costoPorCaja;
+   // echo "<br>";
+    //echo $costoPorCaja;
+ 
+
+
+
+    $pdf = new FPDF();
+    $pdf->AddPage('P', 'A4');
+    $pdf->SetAutoPageBreak(true, 10);
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->SetTopMargin(10);
+    $pdf->SetLeftMargin(10);
+    $pdf->SetRightMargin(10);
+
+
+    /* --- Text --- */
+    $pdf->SetFont('', 'B', 12);
+    $pdf->Text(71, 17, 'COSTO POR CAJA');
+    /* --- Text --- */
+
+    $wid=40;
+
+ /*   $pdf->Text(24, $wid, 'Total costo de Producción: ');
+    /* --- Text --- */
+    $pdf->SetFont('', 'B', 12);
+    $pdf->Text(24, $wid, 'Total costo de Produccion: ');
+    $pdf->SetFont('', '', 12);
+    $pdf->Text(80, $wid, round( $costoProduccion , 2).'$');
+    $pdf->SetFont('', 'B', 12);
+    $pdf->Text(24, $wid+=10, 'Total de Produccion: ');
+    $pdf->SetFont('', '', 12);
+    $pdf->Text(80, $wid, $produccion_Model->total_produccion.'$');
+    $pdf->SetFont('', 'B', 12);
+    $pdf->Text(24, $wid+=10, 'Costo unitario: ');
+    $pdf->SetFont('', '', 12);
+    $pdf->Text(80, $wid, round( $costoUnitario,2).'$');
+    $pdf->SetFont('', 'B', 12);
+    $pdf->Text(24, $wid+=10, 'Costo por caja: ');
+    $pdf->SetFont('', '', 12);
+    $pdf->Text(80, $wid, round( $costoPorCaja,2).'$');
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $pdf->Output('created_pdf.pdf','I');
+    
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -123,30 +191,7 @@ include "./../core/controller/Executor.php";
             }
         }
 
-        /*
-        echo "novedad: ".$totalNovedad."$";
-        echo "<br>";echo "<br>";
-
-        echo "Empleado: ".  round($totalEmpleado, 2)."$";
-        echo "<br>";echo "<br>";
-        echo "Agua:".$totalAgua."$";
-        echo "<br>";echo "<br>";
-        echo "Insumos:".round($totalInsumo, 2)."$";
-        echo "<br>";echo "<br>";
-        
-        echo "<br>";echo "<br>";
-        */
-        /*
-        for ($i=0; $i < count($arrayProductos); $i++) { 
-            echo "Equipos:".$arrayProductos[$i];
-            echo "<br>";
-            echo "Tiempo:".$arrayProductosMeses[$i]." Meses";
-            echo "<br>"; echo "<br>";
-        }
-        echo "<br>"; 
-*/
  
-
         $TotalProduccion = $totalNovedad + $totalSueldoEmpleado + $totalAgua + $totalInsumo;
         return  $TotalProduccion;
 

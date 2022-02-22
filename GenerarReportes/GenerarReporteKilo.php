@@ -37,10 +37,67 @@
 
 
 
-    echo "<br>";
-    echo $costoXKilo;
+   /// echo "<br>";
+   // echo $costoXKilo;
 
 
+    $pdf = new FPDF();
+    $pdf->AddPage('P', 'A4');
+    $pdf->SetAutoPageBreak(true, 10);
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->SetTopMargin(10);
+    $pdf->SetLeftMargin(10);
+    $pdf->SetRightMargin(10);
+
+
+
+  /* --- Text --- */
+  $pdf->SetFont('', 'B', 12);
+  $pdf->Text(71, 17, 'COSTO POR KILO');
+  /* --- Text --- */
+
+  $wid=40;
+
+/*   $pdf->Text(24, $wid, 'Total costo de Producción: ');
+  /* --- Text --- */
+  $pdf->SetFont('', 'B', 12);
+  $pdf->Text(24, $wid, 'Total costo de Produccion: ');
+  $pdf->SetFont('', '', 12);
+  $pdf->Text(80, $wid, round( $costoProduccion , 2).'$');
+  
+  $pdf->SetFont('', 'B', 12);
+  $pdf->Text(24, $wid+=10, 'Total Produccion: ');
+  $pdf->SetFont('', '', 12);
+  $pdf->Text(80, $wid, round( $produccion_Model->total_produccion , 2).'$');
+
+  $pdf->SetFont('', 'B', 12);
+  $pdf->Text(24, $wid+=10, 'Costo Unitario: ');
+  $pdf->SetFont('', '', 12);
+  $pdf->Text(80, $wid, round( $costoUnitario , 2).'$');
+
+
+  $pdf->SetFont('', 'B', 12);
+  $pdf->Text(24, $wid+=10, 'Costo por Kilo: ');
+  $pdf->SetFont('', '', 12);
+  $pdf->Text(80, $wid, round( $costoXKilo , 2).'$');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $pdf->Output('created_pdf.pdf','I');
+    
 
 
 

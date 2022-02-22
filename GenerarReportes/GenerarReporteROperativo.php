@@ -17,8 +17,8 @@
     include "./../core/controller/Executor.php";
     
         $idProduccion = $_GET['id'];
-        echo "<br>";
-        echo "<br>";echo "<br>";
+     //   echo "<br>";
+      //  echo "<br>";echo "<br>";
     
         //Calling to Models
         
@@ -116,7 +116,7 @@
     
     
         
-    
+   /* 
        
         // NOVEDAD
         echo "novedad: ".$totalNovedad."$";
@@ -142,20 +142,118 @@
         echo "<br>"; 
     
     
-    
+    */
     
     
         $TotalProduccion = $totalNovedad + $totalSueldoEmpleado + $totalAgua + $totalInsumo;
     
     
-        echo "Total Costo de Producción: ".round($TotalProduccion, 2)."$";
-        echo "<br>";echo "<br>";
-
+    ///    echo "Total Costo de Producción: ".round($TotalProduccion, 2)."$";
+    //    echo "<br>";echo "<br>";
+//
         $resultadOOperativo = $totalProduccion_Model->total_produccion;
-        echo "Total de Produccion:$resultadOOperativo";
-        echo "<br>";echo "<br>";
+    //    echo "Total de Produccion:$resultadOOperativo";
+    //    echo "<br>";echo "<br>";
 
   
+
+
+
+
+
+
+
+
+
+
+        $pdf = new FPDF();
+        $pdf->AddPage('P', 'A4');
+        $pdf->SetAutoPageBreak(true, 10);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->SetTopMargin(10);
+        $pdf->SetLeftMargin(10);
+        $pdf->SetRightMargin(10);
+     
+     
+
+
+
+ /* --- Text --- */
+ $pdf->SetFont('', 'B', 12);
+ $pdf->Text(71, 17, 'COSTO DE PRODUCCION');
+ /* --- Text --- */
+ $pdf->Text(24, 35, 'Produccion No.'.$idProduccion);
+ /* --- Text --- */
+ $pdf->Text(24, 45, 'Novedades: ');
+ $pdf->SetFont('', '', 12);
+ $pdf->Text(80, 45, $totalNovedad."$");
+ 
+ /* --- Text --- */
+ $pdf->SetFont('', 'B', 12);
+ $pdf->Text(24, 55, 'Empleado: ');
+ $pdf->SetFont('', '', 12);
+ $pdf->Text(80, 55, $totalSueldoEmpleado."$");
+ 
+ /* --- Text --- */
+ $pdf->SetFont('', 'B', 12);
+ $pdf->Text(24, 65, 'Agua: ');
+ $pdf->SetFont('', '', 12);
+ $pdf->Text(80, 65, $totalAgua."$");
+ /* --- Text --- */
+ $pdf->SetFont('', 'B', 12);
+ $pdf->Text(24, 75, 'Insumos: ');
+ $pdf->SetFont('', '', 12);
+ $pdf->Text(80, 75, round($totalInsumo, 2)."$");
+ /* --- Text --- */
+ $pdf->SetFont('', 'B', 12);
+ $pdf->Text(24, 85 , 'Depreciacion de Equipo'  );
+ $dimension = 95;
+ for ($i=0; $i < count($arrayProductos); $i++) { 
+     // $dimension = 110;
+     $pdf->SetFont('', 'B', 12);
+     $pdf->Text(35, $dimension, 'Equipo: '  );
+     $pdf->SetFont('', '', 12);
+     $pdf->Text(55, $dimension, $arrayProductos[$i]  );
+     $pdf->SetFont('', 'B', 12);
+     $dimension +=8; 
+     
+     $pdf->Text(35,$dimension , 'Tiempo:' );
+     $pdf->SetFont('', '', 12);
+     $pdf->Text(55,$dimension , $arrayProductosMeses[$i]  );
+     $dimension +=8; 
+
+    }
+
+
+
+ /* --- Text --- */
+ $pdf->SetFont('', 'B', 12);
+ $pdf->Text(24, $dimension+=10, 'Total Costo de Produccion: '  );
+ $pdf->SetFont('', '', 12);
+ $pdf->Text(80, $dimension, round($TotalProduccion, 2)."$" );
+
+
+ /* --- Text --- */
+ $pdf->SetFont('', 'B', 12);
+ $pdf->Text(24, $dimension+=10, 'Total Produccion: '  );
+ $pdf->SetFont('', '', 12);
+ $pdf->Text(80, $dimension, round($resultadOOperativo, 2)."$" );
+
+ 
+
+        $pdf->Output('created_pdf.pdf','I');
+            
+
+
+
+
+
+
+
+
+
+
+
       
     
         function dias_transcurridos($fechaInicio,$fechaFin) {

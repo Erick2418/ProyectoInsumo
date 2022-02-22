@@ -27,7 +27,57 @@
     $TotalHectarea = $TTProduccion1 + $TTProduccion2;
 
 
-    echo "Total Hectarea: ".$TotalHectarea;
+   $pdf = new FPDF();
+   $pdf->AddPage('P', 'A4');
+   $pdf->SetAutoPageBreak(true, 10);
+   $pdf->SetFont('Arial', '', 12);
+   $pdf->SetTopMargin(10);
+   $pdf->SetLeftMargin(10);
+   $pdf->SetRightMargin(10);
+
+
+    /* --- Text --- */
+    $pdf->SetFont('', 'B', 12);
+    $pdf->Text(71, 17, 'COSTO POR HECTAREA');
+    /* --- Text --- */
+
+    $wid=40;
+
+    /*   $pdf->Text(24, $wid, 'Total costo de Producción: ');
+    /* --- Text --- */
+    $pdf->SetFont('', 'B', 12);
+    $pdf->Text(24, $wid, 'Total costo de Produccion 1: ');
+    $pdf->SetFont('', '', 12);
+    $pdf->Text(85, $wid, round( $TTProduccion1 , 2).'$');
+    /* --- Text --- */
+    $pdf->SetFont('', 'B', 12);
+    $pdf->Text(24, $wid+=10, 'Total costo de Produccion 2: ');
+    $pdf->SetFont('', '', 12);
+    $pdf->Text(85, $wid, round( $TTProduccion2 , 2).'$');
+
+    /* --- Text --- */
+    $pdf->SetFont('', 'B', 12);
+    $pdf->Text(24, $wid+=10, 'Total Hectarea: ');
+    $pdf->SetFont('', '', 12);
+    $pdf->Text(85, $wid, round( $TotalHectarea , 2).'$');
+
+
+
+
+
+
+
+    $pdf->Output('created_pdf.pdf','I');
+    
+
+
+
+
+
+
+
+
+
 
 
 
