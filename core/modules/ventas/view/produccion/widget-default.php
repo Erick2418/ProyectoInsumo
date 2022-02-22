@@ -18,8 +18,8 @@ document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                     <i class="fa fa-download"></i> Descargar <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
-                
-                    <li><a onclick="generarPdf()" >PDF</a></li>
+
+                    <li><a onclick="generarPdf()">PDF</a></li>
                 </ul>
             </div>
         </div>
@@ -103,19 +103,19 @@ document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                            ?>
 
 
-<a style="margin: 5px;" href="index.php?view=delProduccionF&amp;id=<?php  echo $product->id; ?>"
+                    <a style="margin: 5px;" href="index.php?view=delProduccionF&amp;id=<?php  echo $product->id; ?>"
                         class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
 
 
-<?php
-                        }else{?> 
+                    <?php
+                        }else{?>
 
 
-<a style="margin: 5px;" href="index.php?view=reactivarProduccion&amp;id=<?php echo $product->id; ?>"
+                    <a style="margin: 5px;" href="index.php?view=reactivarProduccion&amp;id=<?php echo $product->id; ?>"
                         class="btn btn-xs btn-success"><i class="fa fa-check"></i></a>
 
 
-<?php
+                    <?php
 
                             
                         }
@@ -123,19 +123,10 @@ document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
                         ?>
 
-
-
-
-
-
-
-
-
-
                     <?php 
                         
                         
-                        if( $product->id_labores == 3  ){ ?>
+                        if( $product->id_labores == 3 && $product->estadoProduccion != "FINALIZADO" ){ ?>
 
                     <a style="margin: 5px;" href="index.php?view=totalProduccion&amp;id=<?php echo $product->id; ?>"
                         class="btn btn-xs btn-info"><i class="fa fa-check"></i></a>
@@ -151,7 +142,7 @@ document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
                 </td>
 
-              
+
 
 
             <tr>
@@ -168,17 +159,14 @@ document.cookie = "var_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         <br><br><br><br><br><br><br><br><br><br>
 
         <script>
+        function generarPdf() {
 
-            
-function generarPdf() {
-    
-    
-    window.open('pdfGENERATOR','_black');
+
+            window.open('pdfGENERATOR', '_black');
 
 
 
 
 
-}
-
+        }
         </script>

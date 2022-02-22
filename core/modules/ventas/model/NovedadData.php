@@ -14,6 +14,7 @@ class NovedadData {
         $this->valor =0;
 	}
 
+
 	public function add(){
  
 		$sql = "insert into novelty (fecha_novedad,id_produccion,id_subProduccion,id_tipoNovedad,descripcion,valor ) ";
@@ -42,6 +43,16 @@ class NovedadData {
 		Executor::doit($sql);
 	}
 
+
+	 
+
+	public function updateNovedad(){
+		//$sql = "update ".self::$tablename." set name=\"$this->name\" where id=$this->id";
+		$sql = "UPDATE novelty SET fecha_novedad=\"$this->fecha_novedad\", id_tipoNovedad=\"$this->id_tipoNovedad\", descripcion=\"$this->descripcion\", valor= $this->valor where id=$this->id";
+		echo $sql;
+		die();
+		Executor::doit($sql);
+	}
 
 	public static function getById($id){
 		$sql = "select * from ".self::$tablename." where id=$id";
@@ -101,9 +112,53 @@ class NovedadData {
 		return $array;
 	}
 
+	public static function getNovedadById($id){
+
+		$sql = "select * from ".self::$tablename." where id=$id";
+		$query = Executor::doit($sql);
+		$found = null;
+		$data = new NovedadData();
+		while($r = $query[0]->fetch_array()){
+			$data->id = $r['id'];
+			$data->fecha_novedad = $r['fecha_novedad'];
+			$data->id_produccion = $r['id_produccion'];
+			$data->id_subProduccion = $r['id_subProduccion'];
+			$data->id_tipoNovedad = $r['id_tipoNovedad'];
+			$data->descripcion = $r['descripcion'];
+			$data->valor = $r['valor'];
+			$found = $data;
+			break;
+		}
+		return $found;
+	}
+
+
+
+	
+ 
 
 	public static function getAllNovedades($idProduccion){
 		$sql = "SELECT * FROM novelty WHERE status = 1 AND id_subProduccion = $idProduccion";
+		$query = Executor::doit($sql);
+		$array = array();
+		$cnt = 0;
+		while($r = $query[0]->fetch_array()){
+			$array[$cnt] = new NovedadData();
+			$array[$cnt]->id = $r['id'];
+			$array[$cnt]->fecha_novedad = $r['fecha_novedad'];
+			$array[$cnt]->id_produccion = $r['id_produccion'];
+            $array[$cnt]->id_subProduccion = $r['id_subProduccion'];
+			$array[$cnt]->id_tipoNovedad = $r['id_tipoNovedad'];
+			$array[$cnt]->descripcion = $r['descripcion'];
+			$array[$cnt]->valor = $r['valor'];
+			$cnt++;
+		}
+		return $array;
+	}
+
+	
+	public static function getAllNovedadesByProduccion($idProduccion){
+		$sql = "SELECT * FROM novelty WHERE status = 1 AND id_Produccion = $idProduccion";
 		$query = Executor::doit($sql);
 		$array = array();
 		$cnt = 0;

@@ -149,6 +149,86 @@ class ProductionProduct {
 	
 	}
 
+ 
+	public static function getAguaCantidad($idProduccion){
+		//	$sql = "SELECT MAX(id) AS id FROM production;";
+		//
+		$sql = "SELECT  idProducto, cantidad,  id_produccion FROM product_production WHERE id_produccion = $idProduccion and idProducto = 5"; // 
+			$query = Executor::doit($sql);
+			$found = null;
+			$data = new ProductData();
+			while($r = $query[0]->fetch_array()){
+				$data->cantidad = $r['cantidad'];
+				$found = $data;
+				break;
+			}
+			
+			return $found;
+	
+	
+	
+	}
+
+	public static function getEquipoCantidad($idProduccion){
+		//	$sql = "SELECT MAX(id) AS id FROM production;";
+		//
+		$sql = "SELECT  idProducto, cantidad,  id_produccion FROM product_production WHERE id_produccion = $idProduccion and idProducto = 5"; // 
+			$query = Executor::doit($sql);
+			$found = null;
+			$data = new ProductData();
+			while($r = $query[0]->fetch_array()){
+				$data->cantidad = $r['cantidad'];
+				$found = $data;
+				break;
+			}
+			
+			return $found;
+	
+	
+	
+	}
+
+	public static function getInsumosCantidadPrecio($idProduccion){
+		//    echo "Value is:";
+	 
+		$sql = "SELECT produccion.cantidad, producto.price_in, producto.unit FROM product_production as produccion INNER JOIN product as producto ON produccion.idProducto = producto.id WHERE produccion.id_produccion = $idProduccion AND producto.category_id = 4;";
+	
+		$query = Executor::doit($sql);
+
+		$array = array();
+		$cnt = 0;
+	  
+		while($r = $query[0]->fetch_array()){
+			$array[$cnt] = new ProductionProduct();
+			$array[$cnt]->idProducto = $r['price_in']; //idProducto == PRECIO ENTRADA
+			$array[$cnt]->cantidad = $r['cantidad']; // cantidad== CANTIDAD
+			$array[$cnt]->condicion = $r['unit']; // condicion == UNIDAD
+			$cnt++;
+		}
+		return $array;
+	}
+		
+	public static function getEquiposCantidadPrecio($idProduccion){
+		//    echo "Value is:";
+	 
+		$sql = "SELECT produccion.cantidad, producto.id as idProducto, producto.name as nombre FROM product_production as produccion INNER JOIN product as producto ON produccion.idProducto = producto.id WHERE produccion.id_produccion = $idProduccion AND producto.category_id = 5;";
+	
+		$query = Executor::doit($sql);
+
+		$array = array();
+		$cnt = 0;
+	  
+		while($r = $query[0]->fetch_array()){
+			$array[$cnt] = new ProductionProduct();
+			$array[$cnt]->idProducto = $r['idProducto'];  
+			$array[$cnt]->cantidad = $r['cantidad']; 
+			$array[$cnt]->condicion = $r['nombre']; 
+			$cnt++;
+		}
+		return $array;
+	}
+		
+
 
 }
 

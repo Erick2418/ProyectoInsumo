@@ -9,6 +9,7 @@ class ProductData {
 		$this->unit = "";
 		$this->user_id = "";
 		$this->presentation = "0";
+		$this->category_id = "";
 		$this->created_at = "NOW()";
 	}
 
@@ -85,7 +86,7 @@ class ProductData {
 
 
 	public static function getProducttCantidadById($id){
-		$sql = "select unit from ".self::$tablename." where id=$id";
+		$sql = "select unit, category_id,price_in  from ".self::$tablename." where id=$id";
 		$query = Executor::doit($sql);
 		echo "<br>";
 
@@ -96,6 +97,8 @@ echo "<br>";
 		$data = new ProductData();
 		while($r = $query[0]->fetch_array()){
 			$data->unit = $r['unit'];
+			$data->category_id = $r['category_id'];
+			$data->price_in = $r['price_in'];
 			$found = $data;
 			break;
 		}
@@ -261,6 +264,7 @@ echo "<br>";
 		return $array;
 	}
 	
+
 
 
 

@@ -140,7 +140,7 @@ $stockProductos = ProductData::getAllProductFromCantidad();
 
                             if($fistValor == 1){
                                 ?>
-                                <option selected value="<?php echo $labor->idlabores;?>"><?php echo $labor->nombre;?></option>
+                                <option  value="<?php echo $labor->idlabores;?>"><?php echo $labor->nombre;?></option>
                                 <?php 
         
                             }else{

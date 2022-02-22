@@ -55,7 +55,7 @@ $id_temporal =$_GET['id'];
                                    
                                     ?>
 
-                        <option selected  value="<?php echo $labor->idlabores;?>"><?php echo $labor->nombre;?></option>
+                        <option   value="<?php echo $labor->idlabores;?>"><?php echo $labor->nombre;?></option>
 
 
                         <?php 

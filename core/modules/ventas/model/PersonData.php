@@ -157,6 +157,19 @@ class PersonData {
 	}
 
 
+	public static function getAllByProduccion($idProduccion){
+		$sql = "SELECT sub.id, sub.fecha_fin, sub.id_empleado,  sub.idProduccion, persona.name, persona.sueldo FROM subproduccion  as sub INNER JOIN person as persona on sub.id_empleado = persona.id WHERE sub.idProduccion = $idProduccion;";
+		$query = Executor::doit($sql);
+		$array = array();
+		$cnt = 0;
+		while($r = $query[0]->fetch_array()){
+			$array[$cnt] = new PersonData();
+			$array[$cnt]->sueldo = $r['sueldo'];
+			$cnt++;
+		}
+		return $array;
+	}
+
 }
 
 ?>
