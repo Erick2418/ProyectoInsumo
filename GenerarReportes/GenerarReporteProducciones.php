@@ -21,6 +21,7 @@ include "./formatsPDF/Producciones.php";
 
     //Calling to Models
     $produccion_Model = ProductionData::getById( $idProduccion);
+    
     $novedadesProduccion_Model = NovedadData::getAllNovedadesByProduccion( $idProduccion);
     $personProduccion_Model = PersonData::getAllByProduccion( $idProduccion);
     $aguaCantidad_model = ProductionProduct::getAguaCantidad( $idProduccion);
@@ -160,34 +161,37 @@ include "./formatsPDF/Producciones.php";
 
     /* --- Text --- */
     $pdf->SetFont('', 'B', 12);
-    $pdf->Text(71, 17, 'COSTO DE PRODUCCION');
+    // $tITLE = array('','SISTEMA PRODUCCION MBTA', '');
+    $pdf->Text(71, 17, 'REPORTE DE COSTO DE PRODUCCION');
     /* --- Text --- */
-    $pdf->Text(24, 35, 'Produccion No.'.$idProduccion);
+    $pdf->Text(24, 35, 'PRODUCCION NO.'.$idProduccion);
+    $pdf->Text(75, 35, 'FECHA INICIO: '.date("Y-m-d",strtotime($produccion_Model->fecha_inicio)));
+    $pdf->Text(135, 35, 'FECHA INICIO: '.date("Y-m-d",strtotime($produccion_Model->fecha_fin)));
     /* --- Text --- */
-    $pdf->Text(24, 45, 'Novedades: ');
+    $pdf->Text(24, 55, 'Novedades: ');
     $pdf->SetFont('', '', 12);
-    $pdf->Text(80, 45, $totalNovedad."$");
+    $pdf->Text(80, 55, $totalNovedad."$");
     
     /* --- Text --- */
     $pdf->SetFont('', 'B', 12);
-    $pdf->Text(24, 55, 'Empleado: ');
+    $pdf->Text(24, 65, 'Empleado: ');
     $pdf->SetFont('', '', 12);
-    $pdf->Text(80, 55, $totalSueldoEmpleado."$");
+    $pdf->Text(80, 65, $totalSueldoEmpleado."$");
     
     /* --- Text --- */
     $pdf->SetFont('', 'B', 12);
-    $pdf->Text(24, 65, 'Agua: ');
+    $pdf->Text(24, 75, 'Agua: ');
     $pdf->SetFont('', '', 12);
-    $pdf->Text(80, 65, $totalAgua."$");
+    $pdf->Text(80, 75, $totalAgua."$");
     /* --- Text --- */
     $pdf->SetFont('', 'B', 12);
-    $pdf->Text(24, 75, 'Insumos: ');
+    $pdf->Text(24, 85, 'Insumos: ');
     $pdf->SetFont('', '', 12);
-    $pdf->Text(80, 75, round($totalInsumo, 2)."$");
+    $pdf->Text(80, 85, round($totalInsumo, 2)."$");
     /* --- Text --- */
     $pdf->SetFont('', 'B', 12);
-    $pdf->Text(24, 85 , 'Depreciacion de Equipo'  );
-    $dimension = 95;
+    $pdf->Text(24, 95 , 'Depreciacion de Equipo'  );
+    $dimension = 105;
     for ($i=0; $i < count($arrayProductos); $i++) { 
         // $dimension = 110;
         $pdf->SetFont('', 'B', 12);

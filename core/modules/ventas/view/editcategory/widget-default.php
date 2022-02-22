@@ -1,5 +1,4 @@
 <?php 
-echo 'HERE';
 $user = CategoryData::getById($_GET["id"]);
 ?>
 <div class="row">

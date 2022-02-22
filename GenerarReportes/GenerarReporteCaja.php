@@ -60,7 +60,7 @@ include "./../core/controller/Executor.php";
 
     /* --- Text --- */
     $pdf->SetFont('', 'B', 12);
-    $pdf->Text(71, 17, 'COSTO POR CAJA');
+    $pdf->Text(71, 17, 'REPORTE COSTO POR CAJA');
     /* --- Text --- */
 
     $wid=40;

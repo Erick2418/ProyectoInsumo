@@ -3,7 +3,7 @@ $lote = LotData::getById($_GET["id"]);
     ?>
 <div class="row">
 	<div class="col-md-12">
-	<h1>Nuevo Lote</h1>
+	<h1>Editar Lote</h1>
 	<br>
 		<form class="form-horizontal" method="post" enctype="multipart/form-data" id="addproduct" action="index.php?view=updateLot&amp;id=<?php echo $lote->id ?>"" role="form">
 
@@ -19,7 +19,7 @@ $lote = LotData::getById($_GET["id"]);
       <input type="number" value="<?php echo $lote->num_lot;?>" name="num_lot" class="form-control" required id="num_lot" placeholder="Descripción">
     </div>
 </div>
-<div class="form-group">
+<div class="form-group" style="display:none" >
     <label for="dimension" class="col-lg-2 control-label">Dimensión del lote*</label>
     <div class="col-md-6">
       <input value="<?php echo $lote->dimension;?>"  type="text" name="dimension" class="form-control" required id="dimension" placeholder="Descripción">
