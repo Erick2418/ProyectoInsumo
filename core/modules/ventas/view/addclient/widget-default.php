@@ -8,7 +8,7 @@ if(count($_POST)>0){
 	$user->email1 = $_POST["email1"];
 	$user->phone1 = $_POST["phone1"];
 	$user->sueldo = $_POST["sueldo"];
-	var_dump( $user);
+//	var_dump( $user);
 	$user->add_client();
 print "<script>window.location='index.php?view=clients';</script>";
 

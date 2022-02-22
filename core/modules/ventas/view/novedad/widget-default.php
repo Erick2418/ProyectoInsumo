@@ -1,6 +1,6 @@
 <?php
 $novedades = NovedadData::getAllNovedd();
-	var_dump($novedades);
+	
 ?>
 
 

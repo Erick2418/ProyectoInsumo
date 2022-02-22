@@ -3,9 +3,9 @@ if(isset($_GET["product_id"])):
 $product = ProductData::getById($_GET["product_id"]);
 $operations = OperationData::getAllByProductId($product->id);
 
-var_dump($operations  );
+//var_dump($operations  );
 
-var_dump( $product );
+//var_dump( $product );
 ?>
 <div class="row">
     <div class="col-md-12">

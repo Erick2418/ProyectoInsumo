@@ -2,10 +2,6 @@
 $novedad = NovedadData::getNovedadById($_GET["id"]);
 $tipoNovedades = CategoryData::getTipoNovedad();
 
-var_dump( $novedad );
- 
-
-var_dump( $tipoNovedades );
  
     ?>
 <div class="row">

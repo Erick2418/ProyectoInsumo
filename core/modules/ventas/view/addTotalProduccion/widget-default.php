@@ -1,7 +1,7 @@
 <?php
  
 if(count($_POST)>0){
-	var_dump($_POST );
+//	var_dump($_POST );
  	$ttProduccion = new TotalProduccion();
 	$ttProduccion->total_produccion = $_POST["total_productos"];
 	$ttProduccion->total_hijuelos = $_POST["total_hijuelos"];

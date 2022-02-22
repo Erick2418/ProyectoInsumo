@@ -1,8 +1,8 @@
 <?php
 
 if(count($_POST)>0){
-	var_dump($_POST);
-	die();
+//	var_dump($_POST);
+	
 	$novedad = NovedadData::updateNovedad();
 	$novedad->fecha_novedad = $_POST["fecha_ingreso"];
 	$novedad->id_tipoNovedad = $_POST["tipo_novedad"];

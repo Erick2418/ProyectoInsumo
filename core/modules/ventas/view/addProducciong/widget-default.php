@@ -52,30 +52,30 @@ if(count($_POST)>0){
  
     $cantidadActualArray = $productModel->getProducttCantidadById($idProductoARestar);
  
-    var_dump( $cantidadActualArray); 
+  //  var_dump( $cantidadActualArray); 
     $unidadesActuales = $cantidadActualArray->unit;
 
     $categoriaProducto = $cantidadActualArray->category_id;
     if( $categoriaProducto == "5" ){
-      echo "<br>CATENGORIA 5 <br>";
-      echo "<br>cantidad a restar $cantidadARestar <br>";
+    //  echo "<br>CATENGORIA 5 <br>";
+  //    echo "<br>cantidad a restar $cantidadARestar <br>";
       
       for ($i=0; $i <$cantidadARestar ; $i++) { // Ingresamos por la cantidad de veces q se ingresa el producto
         $precioEntrada = $cantidadActualArray->price_in;
         echo "<br>DENTRO DEL BUCLE <br>";
         $meses=  ($precioEntrada / 10 )/12;
         $depreciacionModel->add($idProductoARestar, round( $meses));
-        echo "cantidadARestar: ".$cantidadARestar;
-        echo "DEPRECIACION". $idProductoARestar;     
+      //  echo "cantidadARestar: ".$cantidadARestar;
+      //  echo "DEPRECIACION". $idProductoARestar;     
       }
     }else{
-      echo "<br>DENTRO DEL ELSE <br>";
+    //  echo "<br>DENTRO DEL ELSE <br>";
       $stockActuala = $unidadesActuales  - $cantidadARestar; 
       $productModel->updateCantidad($stockActuala, $idProductoARestar );
    
     }
  
-    echo "<br>FIN  <br>";
+ //   echo "<br>FIN  <br>";
     $operacionInvetnarioModel->addByProduccion($idProductoARestar,$cantidadARestar);
 
 

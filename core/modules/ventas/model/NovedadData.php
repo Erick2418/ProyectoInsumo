@@ -50,7 +50,7 @@ class NovedadData {
 		//$sql = "update ".self::$tablename." set name=\"$this->name\" where id=$this->id";
 		$sql = "UPDATE novelty SET fecha_novedad=\"$this->fecha_novedad\", id_tipoNovedad=\"$this->id_tipoNovedad\", descripcion=\"$this->descripcion\", valor= $this->valor where id=$this->id";
 		echo $sql;
-		die();
+	//	die();
 		Executor::doit($sql);
 	}
 
