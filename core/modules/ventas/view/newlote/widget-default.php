@@ -19,10 +19,10 @@ $categories = CategoryData::getAll();
       <input type="number" name="num_lot" class="form-control" required id="num_lot" placeholder="Descripción">
     </div>
 </div>
-<div class="form-group">
+<div class="form-group" style="display:none;">
     <label for="dimension" class="col-lg-2 control-label">Dimensión del lote*</label>
     <div class="col-md-6">
-      <input type="text" name="dimension" class="form-control" required id="dimension" placeholder="Descripción">
+      <input type="text" name="dimension" value="5000" class="form-control" required id="dimension" placeholder="Descripción">
    </div>
      </div>
   

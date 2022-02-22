@@ -24,6 +24,8 @@ include "core/modules/".Module::$module."/model/Produccion_Total.php";
 include "core/modules/".Module::$module."/model/SubProductionData.php";
 include "core/modules/".Module::$module."/model/TipoNovedadData.php";
 include "core/modules/".Module::$module."/model/DepresiacionData.php";
+//include "core/modules/".Module::$module."/model/TotalProduccion.php";
+
 session_start();
 ob_start();
 

@@ -10,8 +10,24 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td> <b>Costo de Producción</b> </td>
-                        <td><a href="index.php?view=ReporteProducciones" class="btn btn-lg btn-primary">Generar Reporte</a></td>
+                        <td> <b>Costo Producciones</b> </td>
+                        <td><a href="index.php?view=ReporteProducciones" class="btn btn-sm btn-primary">Generar Reporte</a></td>
+                    </tr>
+                    <tr>
+                        <td> <b>Costo Cajas</b> </td>
+                        <td><a href="index.php?view=ReportePorCajaView" class="btn btn-sm btn-primary">Generar Reporte</a></td>
+                    </tr>
+                    <tr>
+                        <td> <b>Reporte Kilos</b> </td>
+                        <td><a href="index.php?view=ReportePorKiloView" class="btn btn-sm btn-primary">Generar Reporte</a></td>
+                    </tr>
+                    <tr>
+                        <td> <b>Reporte Hectareas</b> </td>
+                        <td><a href="index.php?view=ReportePorHectarea"class="btn btn-sm btn-primary">Generar Reporte</a></td>
+                    </tr>
+                    <tr>
+                        <td> <b>Reporte Resultado Operativo</b> </td>
+                        <td><a href="index.php?view=ReportePorResultadoOperativo"class="btn btn-sm btn-primary">Generar Reporte</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -21,3 +37,19 @@
         </div>
     </div>
 </div>
+
+<script>
+        function generarPdfkilo() {
+
+
+            window.open('GenerarReportes/GenerarReporteKilo.php','_black');
+
+        //    window.open('GenerarReportes/GenerarReporteProducciones.php?id=' + id, '_black');
+
+
+
+
+
+
+        }
+        </script>
