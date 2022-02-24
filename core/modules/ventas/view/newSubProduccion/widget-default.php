@@ -81,7 +81,7 @@ $id_temporal =$_GET['id'];
             </div>
 
             <div class="form-group">
-                <label for="inputEmail1" class="col-lg-2 control-label">Empleado*</label>
+                <label for="inputEmail1" class="col-lg-2 control-label">Grupo Empleados</label>
                 <div class="col-md-6">
                     <select name="empleado_id" id="selectEmpleado" class="form-control">
                         <option value="">-- NINGUNA --</option>

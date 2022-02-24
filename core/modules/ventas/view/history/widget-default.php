@@ -2,8 +2,27 @@
 if(isset($_GET["product_id"])):
 $product = ProductData::getById($_GET["product_id"]);
 $operations = OperationData::getAllByProductId($product->id);
+$salidasTipo3 = ProductData::getSalidasById($product->id);
+$itotal = OperationData::GetInputQYesF($product->id);
 
-//var_dump($operations  );
+$SALIDAS = 0;
+
+if( is_null($salidasTipo3 ) ){
+    $SALIDAS = 0;
+}else{
+
+    $SALIDAS =  $salidasTipo3->id ;
+
+    if($product->category_id == 5   ){
+        $SALIDAS = 0;
+    }
+
+  
+
+
+}
+
+
 
 //var_dump( $product );
 ?>
@@ -28,7 +47,6 @@ $operations = OperationData::getAllByProductId($product->id);
 
 
         <?php
-$itotal = OperationData::GetInputQYesF($product->id);
 
 	?>
         <div class="jumbotron">
@@ -46,14 +64,18 @@ $itotal = OperationData::GetInputQYesF($product->id);
 
     <div class="col-md-4">
         <?php
-$total = OperationData::GetQYesF($product->id);
 
-
+ 
 	?>
         <div class="jumbotron">
             <center>
                 <h2>Disponibles</h2>
-                <h1><?php echo $total; ?></h1>
+                <h1><?php 
+            
+                 echo $itotal - $SALIDAS ;
+                
+                
+                ?></h1>
             </center>
         </div>
         <div class="clearfix"></div>
@@ -67,13 +89,16 @@ $total = OperationData::GetQYesF($product->id);
 
 
         <?php
-$ototal = -1*OperationData::GetOutputQYesF($product->id);
 
 	?>
         <div class="jumbotron">
             <center>
                 <h2>Salidas</h2>
-                <h1><?php echo $ototal; ?></h1>
+                <h1><?php 
+                echo $SALIDAS;
+                
+                
+                ?></h1>
             </center>
         </div>
 

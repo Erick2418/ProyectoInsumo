@@ -13,7 +13,7 @@ $tipoNovedades = CategoryData::getTipoNovedad();
                 <div class="form-group">
                     <label for="inputEmail1" class="col-lg-2 control-label">Fecha *</label>
                     <div class="col-md-6">
-                        <input type="date"  name="fecha_ingreso" class="form-control"  id="fecha_ingreso">
+                        <input type="date"  name="fecha_ingreso"  min="<?= date('Y-m-d'); ?>"  class="form-control"  id="fecha_ingreso">
                     </div>
                 </div>
 

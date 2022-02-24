@@ -181,7 +181,21 @@ echo "<br>";
 	}
 
 
+	
+	public static function getSalidasById($id){
+		$sql = "SELECT q FROM operation AS op WHERE op.product_id = $id and op.operation_type_id = 3";
+		$query = Executor::doit($sql);
+		$found = null;
+		$data = new ProductData();
+		while($r = $query[0]->fetch_array()){
+			$data->id = $r['q'];
+			$found = $data;
+			break;
+		}
+		return $found;
+	}
 
+	
 	public static function getAllByUserId($user_id){
 		$sql = "select * from ".self::$tablename." where user_id=$user_id order by created_at desc";
 		$query = Executor::doit($sql);

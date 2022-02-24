@@ -159,7 +159,7 @@ $stockProductos = ProductData::getAllProductFromCantidad();
             </div>
 
             <div class="form-group">
-                <label for="inputEmail1" class="col-lg-2 control-label">Empleado*</label>
+                <label for="inputEmail1" class="col-lg-2 control-label">Grupo Empleados</label>
                 <div class="col-md-6">
                     <select name="empleado_id" id="selectEmpleado" class="form-control">
                         <option value="">-- NINGUNA --</option>
@@ -172,7 +172,7 @@ $stockProductos = ProductData::getAllProductFromCantidad();
             <div class="form-group">
                 <label for="inputEmail1" class="col-lg-2 control-label">Fecha Comienzo*</label>
                 <div class="col-md-6">
-                    <input onchange="myFunction()" type="date" name="inputFechaComienzo" class="form-control"
+                    <input onchange="myFunction()" type="date" name="inputFechaComienzo" min="<?= date('Y-m-d'); ?>" class="form-control"
                         id="inputFechaComienzo" placeholder="Descripción">
                 </div>
             </div>

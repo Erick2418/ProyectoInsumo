@@ -15,7 +15,7 @@
 
 
  //   var_dump($_GET['id']);
-    $idProduccionGet = 75;
+    $idProduccionGet = $_GET['id'];
 
     //Models
     $produccion_Model = TotalProduccion2::getById( $idProduccionGet);
@@ -121,6 +121,7 @@
         $aguaCantidad_model = ProductionProduct::getAguaCantidad( $idProduccion);
         $equiposCantidadPrecios_Model = ProductionProduct::getEquiposCantidadPrecio( $idProduccion);//!!!idProducto == PRECIO ENTRADA // cantidad== CANTIDAD // condicion == UNIDAD
 
+         
         $fechaInicio = date("Y-m-d", strtotime($produccion_Model->fecha_inicio));
         $fechaFin = date("Y-m-d", strtotime($produccion_Model->fecha_fin)); 
         $diasObtenidos = dias_transcurridos($fechaInicio,$fechaFin );
@@ -168,30 +169,7 @@
             }
         }
 
-        /*
-        echo "novedad: ".$totalNovedad."$";
-        echo "<br>";echo "<br>";
-
-        echo "Empleado: ".  round($totalEmpleado, 2)."$";
-        echo "<br>";echo "<br>";
-        echo "Agua:".$totalAgua."$";
-        echo "<br>";echo "<br>";
-        echo "Insumos:".round($totalInsumo, 2)."$";
-        echo "<br>";echo "<br>";
-        
-        echo "<br>";echo "<br>";
-        */
-        /*
-        for ($i=0; $i < count($arrayProductos); $i++) { 
-            echo "Equipos:".$arrayProductos[$i];
-            echo "<br>";
-            echo "Tiempo:".$arrayProductosMeses[$i]." Meses";
-            echo "<br>"; echo "<br>";
-        }
-        echo "<br>"; 
-*/
  
-
         $TotalProduccion = $totalNovedad + $totalSueldoEmpleado + $totalAgua + $totalInsumo;
         return  $TotalProduccion;
 
@@ -200,6 +178,8 @@
 
     }
 
+
+    
     function dias_transcurridos($fechaInicio,$fechaFin) {
    
         $datetime1 = date_create($fechaInicio);

@@ -6,7 +6,7 @@
   
 </div>
 </div>
-		<h1>Registros de Empleados</h1>
+		<h1>Registros de Grupo de Empleados</h1>
 <br>
 		<?php
 
@@ -18,9 +18,7 @@
 			<table class="table table-bordered table-hover">
 			<thead>
 			<th>Nombre completo</th>
-			<th>Direccion</th>
-			<th>Email</th>
-			<th>Telefono</th>
+
 			<th>Sueldo</th>
 			<th>Acciones</th>
 			</thead>
@@ -29,9 +27,7 @@
 				?>
 				<tr>
 				<td><?php echo $user->name." ".$user->lastname; ?></td>
-				<td><?php echo $user->address1; ?></td>
-				<td><?php echo $user->email1; ?></td>
-				<td><?php echo $user->phone1; ?></td>
+				
 				<td><?php echo $user->sueldo; ?></td>
 				<td style="width:130px;">
 				<a href="index.php?view=editclient&id=<?php echo $user->id;?>" class="btn btn-warning btn-xs">Editar</a>

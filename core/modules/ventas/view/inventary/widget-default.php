@@ -70,7 +70,7 @@ if($px<=$npaginas):
 		<td><?php echo $product->name; ?></td>
 		<td>
 			
-			<?php echo $q; ?>
+			<?php echo $product->unit; ?>
 
 		</td>
 		<td style="width:93px;">
