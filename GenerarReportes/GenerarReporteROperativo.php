@@ -182,7 +182,7 @@
  $pdf->SetFont('', 'B', 12);
  $pdf->Text(71, 17, 'COSTO DE PRODUCCION');
  /* --- Text --- */
- $pdf->Text(24, 35, 'Produccion No.'.$idProduccion);
+ $pdf->Text(24, 35, utf8_decode( 'Producción No.').$idProduccion);
  /* --- Text --- */
  $pdf->Text(24, 45, 'Novedades: ');
  $pdf->SetFont('', '', 12);
@@ -206,7 +206,7 @@
  $pdf->Text(80, 75, round($totalInsumo, 2)."$");
  /* --- Text --- */
  $pdf->SetFont('', 'B', 12);
- $pdf->Text(24, 85 , 'Depreciacion de Equipo'  );
+ $pdf->Text(24, 85 , utf8_decode('Depreciación de Equipo')  );
  $dimension = 95;
  for ($i=0; $i < count($arrayProductos); $i++) { 
      // $dimension = 110;
@@ -228,14 +228,14 @@
 
  /* --- Text --- */
  $pdf->SetFont('', 'B', 12);
- $pdf->Text(24, $dimension+=10, 'Total Costo de Produccion: '  );
+ $pdf->Text(24, $dimension+=10,utf8_decode('Total Costo de Producción: ' ));
  $pdf->SetFont('', '', 12);
  $pdf->Text(80, $dimension, round($TotalProduccion, 2)."$" );
 
 
  /* --- Text --- */
  $pdf->SetFont('', 'B', 12);
- $pdf->Text(24, $dimension+=10, 'Total Produccion: '  );
+ $pdf->Text(24, $dimension+=10,utf8_decode(  'Total Producción: ')  );
  $pdf->SetFont('', '', 12);
  $pdf->Text(80, $dimension, round($resultadOOperativo, 2)."$" );
 

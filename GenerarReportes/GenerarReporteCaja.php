@@ -68,11 +68,11 @@ include "./../core/controller/Executor.php";
  /*   $pdf->Text(24, $wid, 'Total costo de Producción: ');
     /* --- Text --- */
     $pdf->SetFont('', 'B', 12);
-    $pdf->Text(24, $wid, 'Total costo de Produccion: ');
+    $pdf->Text(24, $wid,utf8_decode( 'Total costo de Producción: '));
     $pdf->SetFont('', '', 12);
     $pdf->Text(80, $wid, round( $costoProduccion , 2).'$');
     $pdf->SetFont('', 'B', 12);
-    $pdf->Text(24, $wid+=10, 'Total de Produccion: ');
+    $pdf->Text(24, $wid+=10, utf8_decode('Total de Producción: '));
     $pdf->SetFont('', '', 12);
     $pdf->Text(80, $wid, $produccion_Model->total_produccion.'$');
     $pdf->SetFont('', 'B', 12);
@@ -84,49 +84,8 @@ include "./../core/controller/Executor.php";
     $pdf->SetFont('', '', 12);
     $pdf->Text(80, $wid, round( $costoPorCaja,2).'$');
  
- 
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     $pdf->Output('created_pdf.pdf','I');
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     function GenerarCostoProduccion($idProduccion){

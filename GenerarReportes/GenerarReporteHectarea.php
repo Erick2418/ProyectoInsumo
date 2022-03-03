@@ -46,12 +46,12 @@
     /*   $pdf->Text(24, $wid, 'Total costo de Producción: ');
     /* --- Text --- */
     $pdf->SetFont('', 'B', 12);
-    $pdf->Text(24, $wid, 'Total costo de Produccion 1: ');
+    $pdf->Text(24, $wid, utf8_decode('Total costo de Producción 1: '));
     $pdf->SetFont('', '', 12);
     $pdf->Text(85, $wid, round( $TTProduccion1 , 2).'$');
     /* --- Text --- */
     $pdf->SetFont('', 'B', 12);
-    $pdf->Text(24, $wid+=10, 'Total costo de Produccion 2: ');
+    $pdf->Text(24, $wid+=10, utf8_decode('Total costo de Producción 2: '));
     $pdf->SetFont('', '', 12);
     $pdf->Text(85, $wid, round( $TTProduccion2 , 2).'$');
 

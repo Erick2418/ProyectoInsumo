@@ -158,13 +158,13 @@ include "./formatsPDF/Producciones.php";
     $pdf->SetLeftMargin(10);
     $pdf->SetRightMargin(10);
 
-
+    
     /* --- Text --- */
     $pdf->SetFont('', 'B', 12);
     // $tITLE = array('','SISTEMA PRODUCCION MBTA', '');
-    $pdf->Text(71, 17, 'REPORTE DE COSTO DE PRODUCCION');
+    $pdf->Text(71, 17,utf8_decode( 'REPORTE DE COSTO DE PRODUCCIÓN')  );
     /* --- Text --- */
-    $pdf->Text(24, 35, 'PRODUCCION NO.'.$idProduccion);
+    $pdf->Text(24, 35, utf8_decode('PRODUCCIÓN NO.').$idProduccion);
     $pdf->Text(75, 35, 'FECHA INICIO: '.date("Y-m-d",strtotime($produccion_Model->fecha_inicio)));
     $pdf->Text(135, 35, 'FECHA INICIO: '.date("Y-m-d",strtotime($produccion_Model->fecha_fin)));
     /* --- Text --- */
@@ -190,14 +190,14 @@ include "./formatsPDF/Producciones.php";
     $pdf->Text(80, 85, round($totalInsumo, 2)."$");
     /* --- Text --- */
     $pdf->SetFont('', 'B', 12);
-    $pdf->Text(24, 95 , 'Depreciacion de Equipo'  );
+    $pdf->Text(24, 95 ,  utf8_decode('Depreciación de Equipo')  );
     $dimension = 105;
     for ($i=0; $i < count($arrayProductos); $i++) { 
         // $dimension = 110;
         $pdf->SetFont('', 'B', 12);
         $pdf->Text(35, $dimension, 'Equipo: '  );
         $pdf->SetFont('', '', 12);
-        $pdf->Text(55, $dimension, $arrayProductos[$i]  );
+        $pdf->Text(55, $dimension,  utf8_decode($arrayProductos[$i])  );
         $pdf->SetFont('', 'B', 12);
         $dimension +=8; 
         
@@ -212,7 +212,7 @@ include "./formatsPDF/Producciones.php";
 
     /* --- Text --- */
     $pdf->SetFont('', 'B', 12);
-    $pdf->Text(24, $dimension+7, 'Total Costo de Produccion: '  );
+    $pdf->Text(24, $dimension+7, utf8_decode( 'Total Costo de Producción : ')  );
     $pdf->SetFont('', '', 12);
     $pdf->Text(80, $dimension+7, round($TotalProduccion, 2)."$" );
 
